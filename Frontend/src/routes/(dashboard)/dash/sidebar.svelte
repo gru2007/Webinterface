@@ -18,32 +18,32 @@
     let elements = [
         {
             icon: "insights",
-            name: "Overview",
+            name: "Обзор",
             link: "/stats",
         },
         {
             icon: "dynamic_feed",
-            name: "Events & logging",
+            name: "Ивенты & логирование",
             link: "/events",
         },
         {
             icon: "gavel",
-            name: "Moderation",
+            name: "Модерация",
             link: "/moderation",
         },
         {
             icon: "confirmation_number",
-            name: "Tickets & tools",
+            name: "Тикеты & утилиты",
             link: "/systems",
         },
         {
             icon: "newspaper",
-            name: "News & rewards",
+            name: "Новости & награды",
             link: "/news",
         },
         {
             icon: "leaderboard",
-            name: "Leaderboards",
+            name: "Таблица лидеров",
             link: "/leaderboards",
         }
     ];
