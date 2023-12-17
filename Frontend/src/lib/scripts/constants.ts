@@ -1,5 +1,5 @@
 export const BASE_PATH = "https://botapi.rus-land.fun"
-export const INVITE_URL = "https://invite.ree6.de"
+export const INVITE_URL = "https://stormgalaxy.com/invite-bot"
 
 export function get(path: string) {
 
