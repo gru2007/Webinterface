@@ -1,4 +1,4 @@
-export const BASE_PATH = "http://195.62.52.4:8888"
+export const BASE_PATH = "https://api.stormgalaxy.com"
 export const INVITE_URL = "https://invite.ree6.de"
 
 export function get(path: string) {
