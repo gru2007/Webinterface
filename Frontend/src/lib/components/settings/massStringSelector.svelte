@@ -89,7 +89,7 @@
 
         <div class="button-bar">
 
-            <input placeholder="Any word" bind:value={toAdd} />
+            <input placeholder="Любое слово" bind:value={toAdd} />
 
             <div on:click={() => addString(toAdd)} on:keydown class="button icon-button">
                 <span class="material-icons icon-small icon-primary">add</span>
