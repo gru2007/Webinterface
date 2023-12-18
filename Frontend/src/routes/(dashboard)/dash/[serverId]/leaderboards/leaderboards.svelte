@@ -34,7 +34,7 @@
 
 <div in:fly={{y: 100, delay: 500}} class="transition">
     {#each Array.from(leaderboards.keys()) as key}
-    <h1 class="headline">Таблица лидеров {key.substring(0, 1).toUpperCase() + key.substring(1)}</h1>
+    <h1 class="headline">Таблица лидеров {key.substring(0, 1) + key.substring(1)}</h1>
     
     
     {#each (leaderboards.get(key) ?? []) as leaderboard}

@@ -9,28 +9,28 @@
 </script>
 
 <svelte:head>
-    <title>Events - { $currentServer.name }</title>
+    <title>Ивенты - { $currentServer.name }</title>
 </svelte:head>
 
-<h1 class="headline">Logging</h1>
+<h1 class="headline">Логирование</h1>
 
-<ChannelSelector icon="tag" title="Logging channel" description="Select the channel for all log messages." endpoint={"/guilds/" + $page.params.serverId + "/log"} />
+<ChannelSelector icon="tag" title="Канал логов" description="Выберите канал для всех логов." endpoint={"/guilds/" + $page.params.serverId + "/log"} />
 
-<MassBoolean title="Logging features" description="Configure all events that should be logged." prefix="logging_" icon="dynamic_feed" />
+<MassBoolean title="События" description="Выберите все события, которые должны быть залогированы." prefix="logging_" icon="dynamic_feed" />
 
-<h1 class="headline">Join settings</h1>
+<h1 class="headline">Настройки входа</h1>
 
-<MassRoleSelector title="Automatic roles" description="Configure all roles that should be given to users when joining the guild." icon="military_tech"
+<MassRoleSelector title="Авто-роли" description="Настройте роли, которые получит пользователь при входе на сервер." icon="military_tech"
     endpoint={"/guilds/" + $page.params.serverId + "/autorole"}  />
 
 <div class="default-margin"></div>
 
-<ChannelSelector icon="rocket_launch" title="Welcome channel" description="Select the channel for welcoming people." endpoint={"/guilds/" + $page.params.serverId + "/welcome"} />
+<ChannelSelector icon="rocket_launch" title="Канал приветствия" description="Выберите канал, где бот будет встречать людей." endpoint={"/guilds/" + $page.params.serverId + "/welcome"} />
 
 <div class="default-margin"></div>
 
-<MessageSelector icon="mail" title="Welcome message" description="Configure the welcome message." settingName="message_join" 
-formattingDirectives="%guild_name% - Name of the guild %nl %user_mention% - @<username> to mention the user"/>
+<MessageSelector icon="mail" title="Сообщение приветствия" description="Настройте сообщение приветствия." settingName="message_join" 
+formattingDirectives="%guild_name% - Название сервера %nl %user_mention% - @<username> упоминание пользователя"/>
 
 <style lang="scss">
     @import '$lib/default.scss';

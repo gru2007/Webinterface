@@ -59,7 +59,7 @@
 
     function clearWarnings() {
         confirm = true;
-        confirmTitle = "Clear warnings"
+        confirmTitle = "Очистить варны"
         confirmMessage = "Вы действительно хотите очистить все варны? Это действие нельзя отменить."
         currentAction = "clear"
     }
