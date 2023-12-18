@@ -13,12 +13,12 @@
     <title>Interactions - { $currentServer.name }</title>
 </svelte:head>
 
-<h1 class="headline">Tickets</h1>
+<h1 class="headline">Тикеты</h1>
 
-<MassDataSetup icon="confirmation_number" title="Ticket system" description="Setup the ticket system." endpoint={"/guilds/" + $page.params.serverId + "/tickets"}
+<MassDataSetup icon="confirmation_number" title="Система тикетов" description="Настройте систему тикетов." endpoint={"/guilds/" + $page.params.serverId + "/tickets"}
 model={[
     {
-        name: "Ticket creation channel",
+        name: "Канал создания тикетов",
         jsonName: "channelId",
         type: "channel",
         unit: "",
@@ -31,7 +31,7 @@ model={[
         jsonResName: "channel"
     },
     {
-        name: "Logging channel",
+        name: "Канал логов",
         jsonName: "logChannelId",
         type: "channel",
         unit: "CATEGORY",
@@ -51,34 +51,33 @@ isEnabled={(json) => {
 
 primaryIcon="check"
 render={(json) => {
-    return json.ticketCount + " tickets with logging in #" + json.logChannel.name + " and ticket creation in #" + json.channel.name + "."
+    return json.ticketCount + " тикетов с логирование в #" + json.logChannel.name + " и созданием в #" + json.channel.name + "."
 }}
 
 />
 
 <div class="default-margin"></div>
 
-<MessageSelector icon="menu_open" title="Ticket opening message" description="Configure the message sent when opening a ticket." settingName="message_ticket_open"/>
+<MessageSelector icon="menu_open" title="Сообщение при открытии" description="Настройте сообщение, отправляемое при открытии билета." settingName="message_ticket_open"/>
 
 <div class="default-margin"></div>
 
 <MessageSelector icon="sticky_note_2" title="Ticket menu message" description="Configure the message in the ticket creation embed." settingName="message_ticket_menu"/>
 
-<h1 class="headline">Suggestions</h1>
+<h1 class="headline">Предложения</h1>
 
-<ChannelSelector icon="tag" title="Suggestions channel" description="Select the channel for all suggestions." endpoint={"/guilds/" + $page.params.serverId + "/suggestions"} />
-
-<div class="default-margin"></div>
-
-<MessageSelector icon="sticky_note_2" title="Suggestions embed message" description="Configure the message that will be shown in the suggestions embed." settingName="message_suggestion_menu"/>
-
-<h1 class="headline">Interactions</h1>
-
-<ChannelSelector icon="mic" title="Temporal voice channel" type="VOICE" description="Select the channel that creates new temporal voice channels." endpoint={"/guilds/" + $page.params.serverId + "/temporalvoice"} />
+<ChannelSelector icon="tag" title="Канал предложений" description="Выберите канал для всех предложений." endpoint={"/guilds/" + $page.params.serverId + "/suggestions"} />
 
 <div class="default-margin"></div>
 
-<!--
+<MessageSelector icon="sticky_note_2" title="Сообщение в эмбеде" description="Настройте сообщение показываемое в эмбеде предложений." settingName="message_suggestion_menu"/>
+
+<h1 class="headline">Взаимодействия</h1>
+
+<ChannelSelector icon="mic" title="Временные ГС каналы" type="VOICE" description="Выберите канал, который создает новые временные голосовые каналы." endpoint={"/guilds/" + $page.params.serverId + "/temporalvoice"} />
+
+<div class="default-margin"></div>
+
 <MassDataSelector icon="add_reaction" title="Reaction roles" description="Add reactions on messages that remove/add roles to users."
     models={[
         {
@@ -135,7 +134,6 @@ render={(json) => {
         }
     ]}
 endpoint={"/guilds/" + $page.params.serverId + "/reactionroles"} deleteField={(json) => json.role.id}/>
--->
 
 <style lang="scss">
     @import '$lib/default.scss';
