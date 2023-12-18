@@ -29,7 +29,7 @@
         
         currentServer.set(servers.get($page.params.serverId) ?? {
             id: 0,
-            name: "Unknown server",
+            name: "Неизвестный сервер",
             icon: "hi",
             admin: false,
             setup: false

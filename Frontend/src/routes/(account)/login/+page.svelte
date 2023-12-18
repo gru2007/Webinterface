@@ -51,10 +51,10 @@
 
 <div class="box">
     {#if loading}
-    <h2>Loading..</h2>
+    <h2>Загрузка..</h2>
 
     {:else if !correct}
-    <h2>Invalid request.</h2>
+    <h2>Неправильный запрос.</h2>
     {:else}
     <h2>{message}</h2>
     {/if}

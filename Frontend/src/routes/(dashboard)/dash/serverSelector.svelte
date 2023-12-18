@@ -48,7 +48,7 @@
             <div class="title">
                 {#if $currentServer.id == 0}
                 <span class="material-icons icon-medium icon-primary">ads_click</span>
-                <p class="server-current-name text-medium">Select a server..</p>
+                <p class="server-current-name text-medium">Выберите сервер..</p>
                 {:else}
                 <img src="{$currentServer.icon}" class="material-icons img-small" alt="hi">
                 <p class="server-current-name text-medium">{$currentServer.name}</p>

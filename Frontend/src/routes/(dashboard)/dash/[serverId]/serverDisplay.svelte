@@ -42,14 +42,14 @@
 
         <div on:click={() => selectServer(server)} on:keydown class="button clickable">
             <span class="material-icons icon-primary">edit</span>
-            <p>Manage</p>
+            <p>Управлять</p>
         </div>
 
         {:else}
 
         <div on:click={() => location.assign(new URL(INVITE_URL))} on:keydown class="button clickable">
             <span class="material-icons icon-primary">launch</span>
-            <p>Setup</p>
+            <p>Установить</p>
         </div>
 
         {/if}

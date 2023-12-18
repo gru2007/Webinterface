@@ -26,16 +26,16 @@
 </script>
 
 {#if adminServers.length > 0 || normalServers.length > 0 || inviteServers.length > 0}
-<ServerDisplay description="Change bot settings" servers={adminServers} />
-<ServerDisplay description="Data collection settings & leaderboards" servers={normalServers} />
-<ServerDisplay description="Add the bot to other servers" servers={inviteServers} />
+<ServerDisplay description="Изменить настройки бота" servers={adminServers} />
+<ServerDisplay description="Сбор данных & таблицы лидера" servers={normalServers} />
+<ServerDisplay description="Добавить бота на сервер" servers={inviteServers} />
 {:else}
 <div class="center">
-    <h2>Seems like the bot isn't on any of your servers.</h2>
-    <p class="text-bg">Seeing this probably means you're new on discord! In that case, welcome!</p>
+    <h2>Похоже, бота нет ни на одном из ваших серверов.</h2>
+    <p class="text-bg">Вероятно, что вы новичок в Discord! В этом случае добро пожаловать!</p>
     <a href={INVITE_URL} class="button link hover-primary">
         <span class="material-icons">launch</span>
-        <p>Try to invite the bot</p>
+        <p>Попробуйте пригласить бота</p>
     </a>
 </div>
 {/if}
