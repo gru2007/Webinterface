@@ -32,6 +32,11 @@
             link: "/moderation",
         },
         {
+            icon: "developer_guide",
+            name: "Правила",
+            link: "/rules",
+        },
+        {
             icon: "confirmation_number",
             name: "Тикеты & утилиты",
             link: "/systems",
