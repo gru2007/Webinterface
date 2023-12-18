@@ -18,6 +18,8 @@
 
 <MassBoolean title="События" description="Выберите все события, которые должны быть залогированы." prefix="logging_" icon="dynamic_feed" />
 
+<div class="default-margin"></div>
+
 <ChannelSelector icon="security" title="Действия модераторов" description="В этот канал будут отправлены все акты правосудия над пользователями." endpoint={"/guilds/" + $page.params.serverId + "/modlog"} />
 
 <h1 class="headline">Настройки входа</h1>
