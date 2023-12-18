@@ -12,28 +12,28 @@
     <title>Levels - { $currentServer.name }</title>
 </svelte:head>
 
-<h1 class="headline">News</h1>
+<h1 class="headline">Новости</h1>
 
 <div class="default-margin"></div>
 
-<BooleanSelector icon="newspaper" title="Publish news messages" description="Let Ree6 publish your news messages after you sent them!" settingName="configuration_autopublish" />
+<BooleanSelector icon="newspaper" title="Публиковать новости" description="Позволяет боту публиковать ваши новостные сообщения после вашей отправки!" settingName="configuration_autopublish" />
 
 <div class="default-margin"></div>
 
-<BooleanSelector icon="sync" title="Ree6 announcements" description="Receive announcements published by us." settingName="configuration_news" />
+<BooleanSelector icon="sync" title="Новости бота" description="Получайте объявления отправляемые нами." settingName="configuration_news" />
 
-<h1 class="headline">Rewards</h1>
+<h1 class="headline">Награды</h1>
 
-<MassDataSelector icon="mic" title="Voice level rewards" description="Add rewards for reaching certain voice levels."
+<MassDataSelector icon="mic" title="Награды за ГС уровень" description="Давайте награды за достижение определенных уровней в голосовых."
     models={[
         {
-            name: "Role reward",
+            name: "Награда ролью",
             primaryIcon: "military_tech",
             isModel: (json) => json.level,
-            renderFormat: (json) => "When becoming voice level " + json.level + ", the user gets the " + json.role.name + " role.",
+            renderFormat: (json) => "Когда достигнут " + json.level + " уровень, юзер получает роль " + json.role.name + ".",
             model: [
                 {
-                    name: "Needed level",
+                    name: "Нужный уровень",
                     jsonName: "level",
                     type: "int",
                     value: 1,
@@ -41,7 +41,7 @@
                     unit: "",
                 },
                 {
-                    name: "Rewarded role",
+                    name: "Награждаемая роль",
                     jsonName: "role",
                     type: "role",
                     value: null,
@@ -53,16 +53,16 @@
     ]}
 endpoint={"/guilds/" + $page.params.serverId + "/voicerole"} deleteField={(json) => json.level}/>
 
-<MassDataSelector icon="message" title="Message level rewards" description="Add rewards for reaching certain chat message levels."
+<MassDataSelector icon="message" title="Награды за сообщения" description="Давайте награды за достижение определенных уровей в чате."
     models={[
         {
-            name: "Role reward",
+            name: "Награда ролью",
             primaryIcon: "military_tech",
             isModel: (json) => json.level,
-            renderFormat: (json) => "When becoming chat level " + json.level + ", the user gets the " + json.role.name + " role.",
+            renderFormat: (json) => "Когда достигнут " + json.level + " уровень, юзер получает роль " + json.role.name + ".",
             model: [
                 {
-                    name: "Needed level",
+                    name: "Нужный уровень",
                     jsonName: "level",
                     type: "int",
                     value: 1,
@@ -70,7 +70,7 @@ endpoint={"/guilds/" + $page.params.serverId + "/voicerole"} deleteField={(json)
                     unit: "",
                 },
                 {
-                    name: "Rewarded role",
+                    name: "Награждаемая роль",
                     jsonName: "role",
                     type: "role",
                     value: null,
