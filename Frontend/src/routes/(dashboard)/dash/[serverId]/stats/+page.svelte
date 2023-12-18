@@ -17,7 +17,7 @@
         {
             icon: 'gavel',
             title: 'Модерация',
-            description: 'Настройки модерации, Включенные команды',
+            description: 'Настройки модерации, включенные команды',
             link: '/moderation'
         },
         {
@@ -25,6 +25,18 @@
             title: 'Тикеты & утилиты',
             description: 'Система тикетов и предложений',
             link: '/systems'
+        },
+        {
+            icon: "newspaper",
+            title: "Новости & награды",
+            description: 'Настройки новостей и выдачи наград',
+            link: "/news",
+        },
+        {
+            icon: "edit",
+            title: "Правила сервера",
+            description: 'Настройки панели с правилами сервера',
+            link: "/rules",
         },
         {
             icon: 'leaderboard',
