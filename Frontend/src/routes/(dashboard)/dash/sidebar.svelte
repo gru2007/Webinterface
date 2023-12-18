@@ -33,7 +33,7 @@
         },
         {
             icon: "developer_guide",
-            name: "Правила",
+            name: "Правила сервера",
             link: "/rules",
         },
         {
