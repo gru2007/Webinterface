@@ -123,12 +123,12 @@
         <div class="button-bar">
             <div class="button" on:click={enableAll} on:keydown={() => {}}>
                 <span class="material-icons icon-small icon-primary">done_all</span>
-                <p class="text-small">Enable all</p>
+                <p class="text-small">Включить всё</p>
             </div>
 
             <div class="button" on:click={disableAll} on:keydown={() => {}}>
                 <span class="material-icons icon-small icon-primary">close</span>
-                <p class="text-small">Disable all</p>
+                <p class="text-small">Выключить всё</p>
             </div>
         </div>
 

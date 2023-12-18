@@ -9,7 +9,7 @@
 </script>
 
 {#if picking}
-<RolePicker nullable={true} current={current} zIndex={200} message="Select a role." callback={(role) => {
+<RolePicker nullable={true} current={current} zIndex={200} message="Выберите роль." callback={(role) => {
     picking = false;
     current = role;
     callback(role);
@@ -24,7 +24,7 @@
     <p class="text-small">{current?.name}</p>
     {:else}
     <span class="material-icons icon-primary">close</span>
-    <p class="text-small">Nothing</p>
+    <p class="text-small">Ничего</p>
     {/if}
 </div>
 

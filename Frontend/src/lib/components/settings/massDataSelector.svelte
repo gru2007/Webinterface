@@ -71,7 +71,7 @@
 </script>
 
 {#if picking}
-<DataPopup title="Create {models[currentModel].name.toLowerCase()}" builder={() => {
+<DataPopup title="Создать {models[currentModel].name.toLowerCase()}" builder={() => {
     return structuredClone(models[currentModel].model);
 }} action1="Create" action2="Cancel" action1Handler={async (content) => {
     picking = false;
@@ -99,7 +99,7 @@
 {/if}
 
 {#if confirm}
-<ConfirmPopup title="Confirm deletion." content="Do you really want to delete everything in this list? This action cannot be undone!" 
+<ConfirmPopup title="Подтвердить удаление." content="Вы действительно хотите удалить все в этом списке? Это не может быть отменено!" 
 close={async (b) => {
     confirm = false;
     if(b) {
@@ -146,7 +146,7 @@ close={async (b) => {
 
             <div class="button" on:click={clear} on:keydown={() => {}}>
                 <span class="material-icons icon-small icon-primary">delete</span>
-                <p class="text-small">Delete all</p>
+                <p class="text-small">Удалить всё</p>
             </div>
         </div>
         {:else}

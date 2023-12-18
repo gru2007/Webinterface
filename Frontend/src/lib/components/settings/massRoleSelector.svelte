@@ -8,7 +8,7 @@
 
     export let icon: string;
     export let title: string;
-    export let windowTitle: string = "Select a role to add.";
+    export let windowTitle: string = "Выберите роль для выдачи.";
     export let description: string;
     export let endpoint: string;
 

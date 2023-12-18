@@ -18,7 +18,7 @@
 
     let loading = true;
     let error = false;
-    let errorMessage = "Something went wrong."
+    let errorMessage = "Что-то пошло не так."
 
     let enabled = false;
     let picking = false;
@@ -35,7 +35,7 @@
 
         if(!json.success) {
             error = true;
-            errorMessage = json.message ?? "Something went wrong."
+            errorMessage = json.message ?? "Что-то пошло не так."
             return;
         }
 
@@ -48,11 +48,11 @@
 </script>
 
 {#if picking}
-<DataPopup title="{config ? "Configure" : "Setup"} {title.toLowerCase()}." builder={() => {
+<DataPopup title="{config ? "Настроить" : "Установить"} {title.toLowerCase()}." builder={() => {
     return config ? jsonIntoModel(structuredClone(model), object) : structuredClone(model)
 }} close={() => picking = false} 
 
-action1={config ? "Save" : "Create"}
+action1={config ? "Сохранить" : "Создать"}
 action1Handler={async (data) => {
 
     picking = false;
@@ -63,7 +63,7 @@ action1Handler={async (data) => {
     if(!json.success) {
         console.log(json)
         error = true;
-        errorMessage = json.message ?? "Something went wrong."
+        errorMessage = json.message ?? "Что-то пошло не так."
         setTimeout(() => {
             loading = false;
             error = false;
@@ -106,7 +106,7 @@ action2Handler={() => picking = false}
                 config = false
             }} on:keydown class="button">
                 <span class="material-icons icon-small icon-primary">add</span>
-                <p class="text-small">Setup</p>
+                <p class="text-small">Установить</p>
             </div>
 
             {:else}
@@ -116,7 +116,7 @@ action2Handler={() => picking = false}
                 config = true
             }} on:keydown class="button">
                 <span class="material-icons icon-small icon-primary">settings</span>
-                <p class="text-small">Settings</p>
+                <p class="text-small">Настройки</p>
             </div>
 
             <div on:click={async () => {
@@ -126,7 +126,7 @@ action2Handler={() => picking = false}
 
                 if(!json.success) {
                     error = true;
-                    errorMessage = json.message ?? "Something went wrong."
+                    errorMessage = json.message ?? "Что-то пошло не так."
                     setTimeout(() => {
                         loading = false;
                         error = false;
@@ -138,7 +138,7 @@ action2Handler={() => picking = false}
 
             }} on:keydown class="button">
                 <span class="material-icons icon-small icon-primary">close</span>
-                <p class="text-small">Disable</p>
+                <p class="text-small">Выкл</p>
             </div>
 
             {/if}

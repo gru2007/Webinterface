@@ -40,7 +40,7 @@
                 <p>{$store}</p>
             </div>
             {:else}
-            <input bind:value={$store} placeholder="Any word" />
+            <input bind:value={$store} placeholder="Любое слово" />
             {/if}
 
             <div on:click={() => {

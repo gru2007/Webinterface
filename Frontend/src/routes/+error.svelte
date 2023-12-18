@@ -7,8 +7,8 @@
 
     <div class="column">
         <span class="material-icons colored found icon-primary" style="font-size: 80px;">search</span>
-        <h2>This page was not found.</h2>
-        <a href="/dash" class="button icon-primary">Did you mean to go to the dashboard?</a>
+        <h2>Страница не найдена 🤔</h2>
+        <a href="/dash" class="button icon-primary">Вы хотели бы отправиться на главную?</a>
     </div>
 </div>
 

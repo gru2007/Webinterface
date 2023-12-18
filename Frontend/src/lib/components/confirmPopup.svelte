@@ -23,8 +23,8 @@
         </div>
 
         <div class="buttons">
-            <button class="text-medium" on:click={() => close(true)}>Yes</button>
-            <button class="text-medium" on:click={() => close(false)}>No</button>
+            <button class="text-medium" on:click={() => close(true)}>Да</button>
+            <button class="text-medium" on:click={() => close(false)}>Нет</button>
         </div>
     </div>
 </div>

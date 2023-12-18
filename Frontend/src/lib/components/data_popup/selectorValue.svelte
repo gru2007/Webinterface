@@ -9,7 +9,7 @@
 </script>
 
 {#if picking}
-<StringPicker nullable={false} strings={strings.map((value, _) => value.split(":")[1])} current={""} zIndex={200} message="Select a value." callback={(role) => {
+<StringPicker nullable={false} strings={strings.map((value, _) => value.split(":")[1])} current={""} zIndex={200} message="Выберите значение." callback={(role) => {
     picking = false;
 
     // Grab id
@@ -28,7 +28,7 @@
     <p class="text-small">{strings.filter((value, _) => value.split(":")[0] == current)[0].split(":")[1]}</p>
     {:else}
     <span class="material-icons icon-primary">close</span>
-    <p class="text-small">Nothing</p>
+    <p class="text-small">Ничего</p>
     {/if}
 </div>
 

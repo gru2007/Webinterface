@@ -38,7 +38,7 @@
                 updateSetting(settingName, $currentServer.id + "", $store == "true" ? "false" : "true")
             }} class="button">
                 <span class="material-icons icon-small icon-primary">{$store == "true" ? "close" : "check"}</span>
-                <p>{$store == "true" ? "Disable" : "Enable"}</p>
+                <p>{$store == "true" ? "Выкл" : "Вкл"}</p>
             </div>
         </div>
         {/if}

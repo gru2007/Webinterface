@@ -49,7 +49,7 @@
                 {/each}
             </div>
             {:else}
-            <textarea bind:value={$store} placeholder="Any word" />
+            <textarea bind:value={$store} placeholder="Любое слово" />
             {/if}
 
             <div on:click={() => {

@@ -6,7 +6,7 @@
     import ChannelPicker from "../channelPicker.svelte";
 
     export let title: string;
-    export let windowTitle: string = "Select a channel.";
+    export let windowTitle: string = "Выберите канал.";
     export let icon: string;
     export let type: string = "TEXT";
     export let description: string;
@@ -17,7 +17,7 @@
     let error = false;
     let current: Channel = {
         id: ":loading",
-        name: "Loading...",
+        name: "Загрузка...",
         type: type
     }
 
@@ -113,7 +113,7 @@
             {:else}
             <div class="text">
                 <span class="material-icons icon-primary icon-small">close</span>
-                <p>Nothing</p>
+                <p>Ничего</p>
             </div>
             {/if}
 

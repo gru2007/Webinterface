@@ -11,7 +11,7 @@
 
 {#if picking}
 <div class="flex">
-    <input bind:value={writing} placeholder="Any integer" />
+    <input bind:value={writing} placeholder="Любое целое число" />
     <span class="material-icons button icon-primary icon-button better-hover" on:click={() => {
         picking = false;
         try {
@@ -32,7 +32,7 @@
 }} on:keydown>
     {#if current == null}
     <span class="material-icons icon-primary">close</span>
-    <p class="text-small">Nothing</p>
+    <p class="text-small">Ничего</p>
     {:else}
     <p class="text-small">{current} {unit}</p>
     {/if}

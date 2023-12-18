@@ -34,7 +34,7 @@
                 <div on:click={() => callback(null)} on:keydown 
                     class="channel clickable {current == null ? 'selected' : ''}">
                     <span class="material-icons icon-primary icon-small">close</span>
-                    <div class="name">None</div>
+                    <div class="name">Ничего</div>
                 </div>
                 {/if}
             </div>

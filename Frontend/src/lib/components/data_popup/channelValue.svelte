@@ -13,7 +13,7 @@
 </script>
 
 {#if picking}
-<ChannelPicker current={current} zIndex={200} message="Select a channel." callback={(channel) => {
+<ChannelPicker current={current} zIndex={200} message="Выберите канал." callback={(channel) => {
     picking = false;
 
     if(channel == undefined) return;
@@ -39,7 +39,7 @@
     <p class="text-small">{current.name}</p>
     {:else}
     <span class="material-icons icon-primary">close</span>
-    <p class="text-small">Nothing</p>
+    <p class="text-small">Ничего</p>
     {/if}
 </div>
 
