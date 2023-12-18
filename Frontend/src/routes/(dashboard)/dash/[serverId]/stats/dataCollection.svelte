@@ -22,16 +22,16 @@
 
 </script>
 
-<h2 class="headline">Data collection</h2>
+<h2 class="headline">Сбор данных</h2>
 
 <div class="box default-margin">
     <div class="box-title">
         <div class="content">
             <div class="title">
                 <span class="material-icons icon-primary icon-small">analytics</span>
-                <h1 class="text-medium">Data opt-out</h1>
+                <h1 class="text-medium">Отказ от сбора</h1>
             </div>
-            <p class="text-bg">Opt-out of data collection and monitoring.</p>
+            <p class="text-bg">Вы можете отказаться сбора и мониторинга данных.</p>
         </div>
 
         {#if loading}
@@ -51,7 +51,7 @@
 
             }} class="button">
                 <span class="material-icons icon-small icon-primary">{optOut ? "insights" : "logout"}</span>
-                <p>{optOut ? "Opt-in" : "Opt-out"}</p>
+                <p>{optOut ? "Согласиться" : "Отказаться"}</p>
             </div>
         </div>
         {/if}

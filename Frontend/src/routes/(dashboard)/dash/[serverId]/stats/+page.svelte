@@ -10,26 +10,26 @@
     let actions = [
         {
             icon: 'dynamic_feed',
-            title: 'Events & logging',
-            description: 'Logging settings, auto roles',
+            title: 'Ивенты & логирование',
+            description: 'Настройки логов, авторолей',
             link: '/events'
         },
         {
             icon: 'gavel',
-            title: 'Moderation',
-            description: 'Moderation features, Enabled commands',
+            title: 'Модерация',
+            description: 'Настройки модерации, Включенные команды',
             link: '/moderation'
         },
         {
             icon: 'confirmation_number',
-            title: 'Tickets & tools',
-            description: 'Tickets system, suggestion system',
+            title: 'Тикеты & утилиты',
+            description: 'Система тикетов и предложений',
             link: '/systems'
         },
         {
             icon: 'leaderboard',
-            title: 'Leaderboard',
-            description: 'Chat leaderboard, Voice leaderboard',
+            title: 'Таблица лидеров',
+            description: 'Лидеры чатов и войс каналов',
             link: '/leaderboards'
         }
     ]
@@ -37,7 +37,7 @@
 </script>
 
 <svelte:head>
-    <title>Statistics - { $currentServer.name }</title>
+    <title>Статистика - { $currentServer.name }</title>
 </svelte:head>
 
 <div class="middle">
@@ -51,12 +51,12 @@
     <div class="stats">
         <div class="stat">
             <span class="material-icons icon-primary icon-medium">tag</span>
-            <p>{$currentChannels.length} channels or categories</p>
+            <p>{$currentChannels.length} каналов или категорий</p>
         </div>
     
         <div class="stat">
             <span class="material-icons icon-primary icon-medium">military_tech</span>
-            <p>{$currentRoles.length} roles</p>
+            <p>{$currentRoles.length} ролей</p>
         </div>
     </div>
     {:else}
@@ -64,7 +64,7 @@
     {/if}
 </div>
 
-<h2 class="headline">Bot settings</h2>
+<h2 class="headline">Настройки бота</h2>
 
 <div class="actions">
 
