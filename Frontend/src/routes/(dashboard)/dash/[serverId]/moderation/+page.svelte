@@ -30,21 +30,21 @@
     <title>Moderation - {$currentServer.name}</title>
 </svelte:head>
 
-<h1 class="headline">Moderation settings</h1>
+<h1 class="headline">Настройки модерации</h1>
 
-<StringSelector icon="layers" title="Command prefix" description="Select the prefix for all commands." settingName="chatprefix" />
-
-<div class="default-margin"></div>
-
-<MassStringSelector icon="block" title="Blacklisted words" description="Any message containing a word from the list of blacklisted words will be deleted and logged." endpoint={"/guilds/" + $page.params.serverId + "/blacklist"} />
-
-<h1 class="headline">Command settings</h1>
+<StringSelector icon="layers" title="Префикс" description="Выберите префикс для всех команд." settingName="chatprefix" />
 
 <div class="default-margin"></div>
 
-<MassBoolean icon="keyboard_command_key" title="Enabled commands" description="Configure all commands that can be executed using the discord bot." prefix="command_" />
+<MassStringSelector icon="block" title="Запретные слова" description="Любое сообщение, содержащее слово из списка запрещенных будет удалено и залогировано." endpoint={"/guilds/" + $page.params.serverId + "/blacklist"} />
 
-<h1 class="headline">Warnings & punishments</h1>
+<h1 class="headline">Настройки команд</h1>
+
+<div class="default-margin"></div>
+
+<MassBoolean icon="keyboard_command_key" title="Включенные команды" description="Настройте все команды, которые можно выполнить с помощью бота." prefix="command_" />
+
+<h1 class="headline">Варны & наказания</h1>
 
 <div class="default-margin"></div>
 
@@ -52,16 +52,16 @@
 
 <div class="default-margin"></div>
 
-<MassDataSelector icon="auto_awesome" title="Automatic punishments" description="Automatically do certain things when a user has more than a certain amount of warnings."
+<MassDataSelector icon="auto_awesome" title="Автоматические наказания" description="Автоматически выдает наказания, когда у пользователя больше варнов, чем определено."
     models={[
         {
-            name: "Timeout",
+            name: "Тайм-аут",
             primaryIcon: "timelapse",
             isModel: (json) => json.action == "1",
-            renderFormat: (json) => "More than " + json.neededWarnings + " warnings result in a timeout for " + json.timeoutTime + " seconds.",
+            renderFormat: (json) => "Больше чем " + json.neededWarnings + " варнов приводят к тайм-ауту на " + json.timeoutTime + " сек.",
             model: [
                 {
-                    name: "Needed warnings",
+                    name: "Необходимо варнов",
                     jsonName: "neededWarnings",
                     type: "int",
                     value: 1,
@@ -77,7 +77,7 @@
                     unit: ""
                 },
                 {
-                    name: "Timeout length",
+                    name: "Длина тайм-аута",
                     jsonName: "timeoutTime",
                     type: "int",
                     value: 1000,
@@ -95,13 +95,13 @@
             ]
         },
         {
-            name: "Role",
+            name: "Роль",
             primaryIcon: "military_tech",
             isModel: (json) => json.action == "2" || json.action == "3",
-            renderFormat: (json) => "More than " + json.neededWarnings + " warnings result in " + (json.action == "2" ? "adding the '" + json.role.name + "' role to" : "removing the '" + json.role.name + "' role from") + " the user.",
+            renderFormat: (json) => "Больше чем " + json.neededWarnings + " варнов приводят к " + (json.action == "2" ? "добавлению роли '" + json.role.name + "' к" : "удалению роли '" + json.role.name + "' с") + " пользователя.",
             model: [
                 {
-                    name: "Needed warnings",
+                    name: "Необходимо варнов",
                     jsonName: "neededWarnings",
                     type: "int",
                     value: 1,
@@ -109,15 +109,15 @@
                     unit: "warnings",
                 },
                 {
-                    name: "Role action",
+                    name: "Действие",
                     jsonName: "action",
                     type: "selector",
                     value: "2",
                     visible: true,
-                    unit: "2:Add role,3:Remove role"
+                    unit: "2:Добавить,3:Удалить"
                 },
                 {
-                    name: "Timeout length",
+                    name: "Длина тайм-аута",
                     jsonName: "timeoutTime",
                     type: "int",
                     value: 0,
@@ -125,7 +125,7 @@
                     unit: "seconds"
                 },
                 {
-                    name: "Role",
+                    name: "Роль",
                     jsonName: "roleId",
                     type: "role",
                     value: null,
@@ -135,13 +135,13 @@
             ]
         },
         {
-            name: "Punishment",
+            name: "Наказание",
             primaryIcon: "gavel",
             isModel: (json) => json.action == "4" || json.action == "5",
-            renderFormat: (json) => "More than " + json.neededWarnings + " warnings result in a " + (json.action == "4" ? "kick" : "ban") + ".",
+            renderFormat: (json) => "Больше чем " + json.neededWarnings + " варнов приводят к " + (json.action == "4" ? "кику" : "бану") + ".",
             model: [
                 {
-                    name: "Needed warnings",
+                    name: "Необходимо варнов",
                     jsonName: "neededWarnings",
                     type: "int",
                     value: 1,
@@ -149,15 +149,15 @@
                     unit: "warnings",
                 },
                 {
-                    name: "Punishment type",
+                    name: "Тип наказания",
                     jsonName: "action",
                     type: "selector",
                     value: "4",
                     visible: true,
-                    unit: "4:Kick,5:Ban"
+                    unit: "4:Кик,5:Бан"
                 },
                 {
-                    name: "Timeout length",
+                    name: "Длина тайм-аута",
                     jsonName: "timeoutTime",
                     type: "int",
                     value: 0,
@@ -165,7 +165,7 @@
                     unit: "seconds"
                 },
                 {
-                    name: "Role",
+                    name: "Роль",
                     jsonName: "roleId",
                     type: "role",
                     value: null,

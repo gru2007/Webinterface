@@ -11,12 +11,12 @@
     onMount(async () => {
         loading = true;
 
-        await loadLeaderboard("chat")
-        await loadLeaderboard("voice")
+        await loadLeaderboard("chat","чата")
+        await loadLeaderboard("voice","войса")
         loading = false;
     })
 
-    async function loadLeaderboard(category: string) {
+    async function loadLeaderboard(category: string, name: string) {
         const json = await get_js("/guilds/" + $page.params.serverId + "/leaderboard/" + category)
 
         if(!json.success) {
@@ -25,7 +25,7 @@
 
         console.log(json)
 
-        leaderboards.set(category, category == "chat" ? json.object.chatLeaderboard : json.object.voiceLeaderboard)        
+        leaderboards.set(name, name == "чата" ? json.object.chatLeaderboard : json.object.voiceLeaderboard)        
     }
 
 </script>
@@ -34,7 +34,7 @@
 
 <div in:fly={{y: 100, delay: 500}} class="transition">
     {#each Array.from(leaderboards.keys()) as key}
-    <h1 class="headline">{key.substring(0, 1).toUpperCase() + key.substring(1)} Leaderboard</h1>
+    <h1 class="headline">Таблица лидеров {key.substring(0, 1).toUpperCase() + key.substring(1)}</h1>
     
     
     {#each (leaderboards.get(key) ?? []) as leaderboard}
@@ -49,7 +49,7 @@
                 </div>
     
                 <div class="level">
-                    <p class="text-small">Level {leaderboard.userLevel.level} ({leaderboard.userLevel.formattedExperience}/{leaderboard.userLevel.formattedNeededExperience})</p>
+                    <p class="text-small">Уровень {leaderboard.userLevel.level} ({leaderboard.userLevel.formattedExperience}/{leaderboard.userLevel.formattedNeededExperience})</p>
                 </div>
             </div>
         </div>

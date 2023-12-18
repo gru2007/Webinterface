@@ -33,8 +33,8 @@
     function addWarning(id: string, callback: Function) {
         confirm = true;
         setCallback = callback
-        confirmTitle = "Add warning"
-        confirmMessage = "Do you really want to add a warning to this user?"
+        confirmTitle = "Добавить варн"
+        confirmMessage = "Вы действительно хотите добавить варн этому пользователю?"
         currentAction = "add"
         currentTarget = id + ":1"
     }
@@ -42,8 +42,8 @@
     function removeWarning(id: string, callback: Function) {
         confirm = true;
         setCallback = callback
-        confirmTitle = "Remove warning"
-        confirmMessage = "Do you really want to remove a warning to this user?"
+        confirmTitle = "Убрать варн"
+        confirmMessage = "Вы действительно хотите убрать варн этому пользователю?"
         currentAction = "add"
         currentTarget = id + ":-1"
     }
@@ -51,8 +51,8 @@
     function clearWarningsOfUser(id: string, callback: Function) {
         confirm = true;
         setCallback = callback
-        confirmTitle = "Clear warnings"
-        confirmMessage = "Do you really want to clear ALL warnings of this user? This action cannot be undone."
+        confirmTitle = "Очистить варны"
+        confirmMessage = "Вы действительно хотите ВСЕ варны этого пользователя? Это действие нельзя отменить."
         currentAction = "remove"
         currentTarget = id
     }
@@ -60,7 +60,7 @@
     function clearWarnings() {
         confirm = true;
         confirmTitle = "Clear warnings"
-        confirmMessage = "Do you really want to clear all warnings? This action cannot be undone."
+        confirmMessage = "Вы действительно хотите очистить все варны? Это действие нельзя отменить."
         currentAction = "clear"
     }
 
@@ -147,9 +147,9 @@
         <div class="content">
             <div class="title">
                 <span class="material-icons icon-primary icon-small">crisis_alert</span>
-                <h1 class="text-medium">Warnings</h1>
+                <h1 class="text-medium">Варны</h1>
             </div>
-            <p class="text-bg">The list of all users that have been warned.</p>
+            <p class="text-bg">Список пользователей, которым выдали варны.</p>
         </div>
 
         {#if !loading}
@@ -158,10 +158,10 @@
             {#if warnings.length > 0}
             <div class="button" on:click={() => clearWarnings()} on:keydown={() => {}}>
                 <span class="material-icons icon-small icon-primary">delete</span>
-                <p class="text-small">Delete all</p>
+                <p class="text-small">Удалить все</p>
             </div>
             {:else}
-            <p class="text">No warnings found!</p>
+            <p class="text">Варнов не найдено!</p>
             {/if}
         </div>
         {:else}
@@ -175,7 +175,7 @@
         {#each warnings as warning}
 
         <div class="chip">
-            <img src={warning.user.avatarUrl} alt="User avatar" />
+            <img src={warning.user.avatarUrl} alt="Аватар" />
             <p class="text-small">{warning.user.name}</p>
 
             <div class="hr-v"></div>
