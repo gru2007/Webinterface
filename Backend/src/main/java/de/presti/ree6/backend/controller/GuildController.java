@@ -361,7 +361,7 @@ public class GuildController {
     //region Guild Log Channel
 
     @GetMapping(value = "/{guildId}/log", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericObjectResponse<ChannelContainer> retrieveLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+    public GenericObjectResponse<ChannelContainer> retrieveModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
         try {
             return new GenericObjectResponse<>(true, guildService.getLogChannel(sessionIdentifier, guildId), "Log channel retrieved!");
         } catch (Exception e) {
@@ -370,7 +370,7 @@ public class GuildController {
     }
 
     @PostMapping(value = "/{guildId}/log/remove", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericResponse removeLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+    public GenericResponse removeModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
         try {
             SQLSession.getSqlConnector().getSqlWorker().deleteEntity(guildService.removeLogChannel(sessionIdentifier, guildId));
             return new GenericResponse(true, "Log channel removed!");
@@ -380,9 +380,42 @@ public class GuildController {
     }
 
     @PostMapping(value = "/{guildId}/log/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericResponse addLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId, @RequestBody GenericValueRequest request) {
+    public GenericResponse addModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId, @RequestBody GenericValueRequest request) {
         try {
             guildService.updateLogChannel(sessionIdentifier, guildId, request.value());
+            return new GenericResponse(true, "Log channel added!");
+        } catch (Exception e) {
+            return new GenericResponse(false, e.getMessage());
+        }
+    }
+
+    //endregion
+
+    //region Guild ModerLog Channel
+
+    @GetMapping(value = "/{guildId}/modlog", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GenericObjectResponse<ChannelContainer> retrieveLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+        try {
+            return new GenericObjectResponse<>(true, guildService.getModLogChannel(sessionIdentifier, guildId), "Log channel retrieved!");
+        } catch (Exception e) {
+            return new GenericObjectResponse<>(false, null, e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/{guildId}/modlog/remove", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GenericResponse removeLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+        try {
+            SQLSession.getSqlConnector().getSqlWorker().deleteEntity(guildService.removeModLogChannel(sessionIdentifier, guildId));
+            return new GenericResponse(true, "Log channel removed!");
+        } catch (Exception e) {
+            return new GenericResponse(false, e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/{guildId}/modlog/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GenericResponse addLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId, @RequestBody GenericValueRequest request) {
+        try {
+            guildService.updateModLogChannel(sessionIdentifier, guildId, request.value());
             return new GenericResponse(true, "Log channel added!");
         } catch (Exception e) {
             return new GenericResponse(false, e.getMessage());

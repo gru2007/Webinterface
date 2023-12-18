@@ -111,6 +111,61 @@ public class GuildService {
 
     //endregion
 
+    //region ModLog channel
+
+    public ChannelContainer getModLogChannel(String sessionIdentifier, String guildId) throws IllegalAccessException {
+        GuildContainer guildContainer = sessionService.retrieveGuild(sessionIdentifier, guildId, true);
+        WebhookMod webhook = SQLSession.getSqlConnector().getSqlWorker().getModWebhook(guildId);
+        if (webhook == null) {
+            return new ChannelContainer();
+        }
+
+        if (webhook.getChannelId() != 0) {
+            return new ChannelContainer(guildContainer.getGuildChannelById(String.valueOf(webhook.getChannelId())));
+        } else {
+            net.dv8tion.jda.api.entities.Webhook webhook1 = guildContainer.getGuild().retrieveWebhooks().complete().stream()
+                    .filter(entry -> entry.getId().equalsIgnoreCase(webhook.getWebhookId()) && entry.getToken().equalsIgnoreCase(webhook.getToken())).findFirst().orElse(null);
+
+            if (webhook1 != null) {
+                webhook.setChannelId(webhook1.getChannel().getIdLong());
+                SQLSession.getSqlConnector().getSqlWorker().updateEntity(webhook);
+                return new ChannelContainer(webhook1);
+            }
+        }
+
+        return new ChannelContainer();
+    }
+
+    public void updateModLogChannel(String sessionIdentifier, String guildId, String channelId) throws IllegalAccessException {
+        GuildContainer guildContainer = sessionService.retrieveGuild(sessionIdentifier, guildId);
+        Guild guild = guildContainer.getGuild();
+        StandardGuildMessageChannel channel = guild.getChannelById(StandardGuildMessageChannel.class, channelId);
+
+        net.dv8tion.jda.api.entities.Webhook newWebhook = channel.createWebhook("Ree6-Log").complete();
+
+        WebhookWelcome welcome = deleteWelcomeChannel(guild);
+
+        SQLSession.getSqlConnector().getSqlWorker().setModWebhook(guildId, channel.getIdLong(), newWebhook.getId(), newWebhook.getToken());
+    }
+
+    public WebhookMod removeModLogChannel(String sessionIdentifier, String guildId) throws IllegalAccessException {
+        return deleteModLogChannel(sessionService.retrieveGuild(sessionIdentifier, guildId).getGuild());
+    }
+
+    private WebhookMod deleteModLogChannel(Guild guild) {
+        WebhookMod webhook = SQLSession.getSqlConnector().getSqlWorker().getModWebhook(guild.getId());
+
+        if (webhook != null) {
+            guild.retrieveWebhooks().queue(c -> c.stream().filter(entry -> entry.getToken() != null)
+                    .filter(entry -> entry.getId().equalsIgnoreCase(webhook.getWebhookId()) && entry.getToken().equalsIgnoreCase(webhook.getToken()))
+                    .forEach(entry -> entry.delete().queue()));
+        }
+
+        return webhook;
+    }
+
+    //endregion
+
     //region Welcome channel
 
     public ChannelContainer getWelcomeChannel(String sessionIdentifier, String guildId) throws IllegalAccessException {
