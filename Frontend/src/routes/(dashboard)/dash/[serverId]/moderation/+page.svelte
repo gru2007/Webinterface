@@ -5,6 +5,7 @@
     import MassDataSelector from "$lib/components/settings/massDataSelector.svelte";
     import MassStringSelector from "$lib/components/settings/massStringSelector.svelte";
     import StringSelector from "$lib/components/settings/stringSelector.svelte";
+    import MessageSelector from "$lib/components/settings/messageSelector.svelte";
     import { currentServer } from "$lib/scripts/servers";
     import Warnings from "./warnings.svelte";
 
@@ -37,6 +38,39 @@
 <div class="default-margin"></div>
 
 <MassStringSelector icon="block" title="Запретные слова" description="Любое сообщение, содержащее слово из списка запрещенных будет удалено и залогировано." endpoint={"/guilds/" + $page.params.serverId + "/blacklist"} />
+
+
+<h1 class="headline">Правила сервера</h1>
+
+<div class="default-margin"></div>
+
+<MessageSelector icon="menu_book" title="Глава 1" description="Измените первую главу правил." settingName="message_rules_1"
+formattingDirectives="пока что, форматирования нет"/>
+
+<div class="default-margin"></div>
+
+<MessageSelector icon="menu_book" title="Глава 3" description="Измените вторую главу правил." settingName="message_rules_2"
+formattingDirectives="пока что, форматирования нет"/>
+
+<div class="default-margin"></div>
+
+<MessageSelector icon="menu_book" title="Глава 3" description="Измените первую третью правил." settingName="message_rules_3"
+formattingDirectives="пока что, форматирования нет"/>
+
+<div class="default-margin"></div>
+
+<MessageSelector icon="beenhere" title="Дочерние дискорды" description="Измените примечание о дочерних дискордах." settingName="message_rules_child"
+formattingDirectives="пока что, форматирования нет"/>
+
+<div class="default-margin"></div>
+
+<MessageSelector icon="beenhere" title="Административные каналы" description="Измените примечание о админ-каналах." settingName="message_rules_admin"
+formattingDirectives="пока что, форматирования нет"/>
+
+<div class="default-margin"></div>
+
+<MessageSelector icon="beenhere" title="Примечание" description="Измените общее примечание." settingName="message_rules_other"
+formattingDirectives="пока что, форматирования нет"/>
 
 <h1 class="headline">Настройки команд</h1>
 
