@@ -22,7 +22,7 @@
 </script>
 
 {#if showFormatting}
-<InfoPopup title="Formatting" content={formattingDirectives ?? ""} close={() => showFormatting = false} />
+<InfoPopup title="Форматирование" content={formattingDirectives ?? ""} close={() => showFormatting = false} />
 {/if}
 
 <div class="box default-margin">
