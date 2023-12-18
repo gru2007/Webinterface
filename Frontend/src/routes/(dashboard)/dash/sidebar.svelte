@@ -32,7 +32,7 @@
             link: "/moderation",
         },
         {
-            icon: "developer_guide",
+            icon: "gavel",
             name: "Правила сервера",
             link: "/rules",
         },
