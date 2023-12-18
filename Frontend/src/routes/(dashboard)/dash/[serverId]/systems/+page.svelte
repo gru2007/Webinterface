@@ -62,7 +62,7 @@ render={(json) => {
 
 <div class="default-margin"></div>
 
-<MessageSelector icon="sticky_note_2" title="Ticket menu message" description="Configure the message in the ticket creation embed." settingName="message_ticket_menu"/>
+<MessageSelector icon="sticky_note_2" title="Сообщение в меню" description="Настройте сообщение в эмбеде созданного тикета." settingName="message_ticket_menu"/>
 
 <h1 class="headline">Предложения</h1>
 
