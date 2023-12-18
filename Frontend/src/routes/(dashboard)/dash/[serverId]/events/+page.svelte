@@ -18,6 +18,8 @@
 
 <MassBoolean title="События" description="Выберите все события, которые должны быть залогированы." prefix="logging_" icon="dynamic_feed" />
 
+<ChannelSelector icon="security" title="Действия модераторов" description="В этот канал будут отправлены все акты правосудия над пользователями." endpoint={"/guilds/" + $page.params.serverId + "/modlog"} />
+
 <h1 class="headline">Настройки входа</h1>
 
 <MassRoleSelector title="Авто-роли" description="Настройте роли, которые получит пользователь при входе на сервер." icon="military_tech"
