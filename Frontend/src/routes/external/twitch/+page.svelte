@@ -26,7 +26,7 @@
             message = json.message;
             
             if(!json.success) {
-                if(json.message === "Session not found!") {
+                if(json.message === "Сессия не найдена!") {
                     localStorage.setItem("redirect", $page.url.href);
                     location.assign(BASE_PATH + "/auth/discord/request")
                     return;
@@ -47,7 +47,7 @@
 </script>
 
 <svelte:head>
-    <title>Twitch Autentication</title>
+    <title>Авторизация Twitch</title>
 </svelte:head>
 
 {#if loading}
@@ -61,8 +61,8 @@
 <div class="body">
     <div in:fly={{y: 50, delay: 500}} class="column">
         <span in:scale={{delay: 900}} class="material-icons colored found icon-primary" style="font-size: 80px;">rocket</span>
-        <h2>The Twitch authentication was successful.</h2>
-        <p>You can close this tab now!</p>
+        <h2>Twitch успешно привязан.</h2>
+        <p>Вы теперь можете закрыть это окно!</p>
     </div>
 </div>
 
@@ -70,8 +70,8 @@
 <div class="body">
     <div in:fly={{y: 50, delay: 500}} class="column">
         <span in:scale={{delay: 900}} class="material-icons colored found icon-primary" style="font-size: 80px;">search</span>
-        <h2>The Twitch authentication failed.</h2>
-        <p>Reason for this is {message}</p>
+        <h2>Twitch не удалось привязать.</h2>
+        <p>Причина - {message}</p>
     </div>
 </div>
 {/if}

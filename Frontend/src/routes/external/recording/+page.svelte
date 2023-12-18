@@ -26,7 +26,7 @@
         const json = await get_js("/guilds/recording?recordId=" + $page.url.searchParams.get("id"));
 
         if(!json.success) {
-            if(json.message === "Session not found!") {
+            if(json.message === "Сессия не найдена!") {
                 localStorage.setItem("redirect", $page.url.href);
                 location.assign(BASE_PATH + "/auth/discord/request")
                 return;
@@ -46,10 +46,10 @@
     function copy() {
 
         navigator.clipboard.writeText($page.url.href).then(() => {
-            popupMessage = "Link copied to clipboard!";
+            popupMessage = "Ссылка скопирована!";
             popup = true;
         }).catch(() => {
-            popupMessage = "Failed to copy link to clipboard!";
+            popupMessage = "Не удалось скопировать!";
             popup = true;
         });
 
@@ -61,7 +61,7 @@
 </script>
 
 <svelte:head>
-    <title>Recording</title>
+    <title>Запись</title>
 </svelte:head>
 
 {#if popup}
@@ -84,7 +84,7 @@
                     <img src={recording.creator.avatarUrl} alt="hi">
                     <h2 class="text-large">{recording.creator.name}</h2>
                 </div>
-                <p>Recorded on {new Date(parseInt(recording.creationTime)).toLocaleDateString("en-AU")}</p>
+                <p>Записано в {new Date(parseInt(recording.creationTime)).toLocaleDateString("en-AU")}</p>
             </div>
 
             <div class="buttons">
@@ -100,7 +100,7 @@
 
                 }} on:keydown>
                     <span class="material-icons icon-medium icon-primary clickable">download</span>
-                    <p class="text-medium">Download</p>
+                    <p class="text-medium">Скачать</p>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
 {:else}
 <div class="body">
     <span in:scale={{delay: 900}} class="material-icons colored found icon-primary" style="font-size: 80px;">search</span>
-    <h2 in:fly={{y: 50, delay: 500}}>This recording doesn't exist!</h2>
+    <h2 in:fly={{y: 50, delay: 500}}>Этой записи не существует!</h2>
 </div>
 {/if}
 
