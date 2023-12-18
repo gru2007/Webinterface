@@ -13,7 +13,7 @@
 </script>
 
 {#if picking}
-<ChannelPicker current={current} zIndex={200} message="Выберите канал." callback={(channel) => {
+<ChannelPicker current={current} zIndex={200} message="Выберите канал" callback={(channel) => {
     picking = false;
 
     if(channel == undefined) return;
