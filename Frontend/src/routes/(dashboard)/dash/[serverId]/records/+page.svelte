@@ -100,6 +100,7 @@
         display: flex;
         gap: 0.7rem;
         align-items: center;
+        padding: 10px;
 
         .button {
             height: min-content;
@@ -107,7 +108,7 @@
             align-items: center;
             gap: var(--button-gap);
             padding: var(--button-padding);
-            background-color: var(--outer-space);
+            background-color: var(--onyx);
             border-radius: 1rem;
             transition: 250ms all ease;
             cursor: pointer;
