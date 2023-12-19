@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-    <title>Levels - { $currentServer.name }</title>
+    <title>Уровни - { $currentServer.name }</title>
 </svelte:head>
 
 <h1 class="headline">Новости</h1>
