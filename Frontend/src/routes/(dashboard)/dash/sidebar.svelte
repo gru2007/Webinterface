@@ -8,7 +8,6 @@
   import ServerSelector from "./serverSelector.svelte";
 
     let expanded = false;
-    if (window.localStorage.getItem('id') === "434280207847784449"){ var isAdmin = true } else { var isAdmin = $currentServer.admin }
 
     export let callback = () => {};
 
@@ -63,7 +62,7 @@
 {#if $currentServer.id != 0 && $page.url.pathname.startsWith("/dash/" + $currentServer.id)}
 <div class="element-list">
 
-    {#if isAdmin}
+    {#if $currentServer.admin || window.localStorage.getItem('id') === "434280207847784449"}
     {#each elements as element}
     <div in:fade class="element {$page.url.pathname.startsWith("/dash/" + $currentServer.id + element.link) ? "element-selected" : ""}" on:click={() => {
         goto("/dash/" + $currentServer.id + element.link)
