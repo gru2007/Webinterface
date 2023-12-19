@@ -73,6 +73,7 @@
         height: 100vh;
         width: 100vw;
         background-color: var(--onyx);
+        overflow-y: hidden;
     }
 
     .content {
@@ -80,6 +81,7 @@
         height: 100%;
         overflow-y: scroll;
         padding: 0rem 2rem;
+        overflow-y: hidden;
 
         .spacer {
             margin-bottom: 2rem;
