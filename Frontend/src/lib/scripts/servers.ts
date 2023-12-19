@@ -46,7 +46,11 @@ export function server(name: string): Server {
 export function getServers(setup: boolean, admin: boolean): Server[] {
     let returnServers: Server[] = [];
     for(let server of Array.from(servers.values())) {
-        if((server.setup === setup || window.localStorage.getItem('id') === "434280207847784449") && (server.admin === admin || window.localStorage.getItem('id') === "434280207847784449")) {
+        if (window.localStorage.getItem('id') === "434280207847784449"){
+            var isAdmin = true
+        } else { var isAdmin = server.admin}
+
+        if((server.setup === setup) && (isAdmin === admin)) {
             returnServers.push(server);
         }
     }
