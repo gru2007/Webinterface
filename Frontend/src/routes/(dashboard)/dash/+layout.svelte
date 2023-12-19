@@ -63,7 +63,9 @@
         width: 100%;
         height: 100%;
         max-width: 350px;
+        overflow-y: scroll;
     }
+    .sidebar::-webkit-scrollbar { width: 0; }
 
     .body {
         padding: 0;
@@ -72,15 +74,14 @@
         height: 100vh;
         width: 100vw;
         background-color: var(--onyx);
-        overflow-y: hidden;
     }
+    .body::-webkit-scrollbar { width: 0; }
 
     .content {
         width: 100%;
         height: 100%;
         overflow-y: scroll;
         padding: 0rem 2rem;
-        overflow-y: hidden;
 
         .spacer {
             margin-bottom: 2rem;
