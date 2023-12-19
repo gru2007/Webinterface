@@ -26,7 +26,7 @@
         const json = await get_js("/guilds/recording?recordId=" + $page.url.searchParams.get("id"));
 
         if(!json.success) {
-            if(json.message === "Сессия не найдена!") {
+            if(json.message === "Session not found!") {
                 localStorage.setItem("redirect", $page.url.href);
                 location.assign(BASE_PATH + "/auth/discord/request")
                 return;
