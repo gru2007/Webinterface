@@ -84,7 +84,7 @@
                     <img src={recording.creator.avatarUrl} alt="hi">
                     <h2 class="text-large">{recording.creator.name}</h2>
                 </div>
-                <p>Записано в {new Date(parseInt(recording.creationTime)).toLocaleDateString("en-AU")}</p>
+                <p>Записано {new Date(parseInt(recording.creationTime)).toLocaleDateString("en-AU")}</p>
             </div>
 
             <div class="buttons">

@@ -25,10 +25,10 @@
         <div class="title">
             <div class="column">
                 <div class="user">
-                    <img src="" alt="hi">
-                    <h2 class="text-large">Gru</h2>
+                    <img src="https://cdn.discordapp.com/avatars/434280207847784449/c7e6fcd66027352b91c6ae45c8075465.png" alt="hi">
+                    <h2 class="text-large">gru__</h2>
                 </div>
-                <p>Записано в X</p>
+                <p>Записано 19/12/2023</p>
             </div>
 
             <div class="buttons">
@@ -45,10 +45,10 @@
         <div class="title">
             <div class="column">
                 <div class="user">
-                    <img src="" alt="hi">
-                    <h2 class="text-large">Gru</h2>
+                    <img src="https://cdn.discordapp.com/avatars/434280207847784449/c7e6fcd66027352b91c6ae45c8075465.png" alt="hi">
+                    <h2 class="text-large">gru__</h2>
                 </div>
-                <p>Записано в X</p>
+                <p>Записано 19/12/2023</p>
             </div>
 
             <div class="buttons">
