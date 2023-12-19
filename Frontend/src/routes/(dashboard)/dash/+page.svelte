@@ -27,7 +27,7 @@
 
 {#if adminServers.length > 0 || normalServers.length > 0 || inviteServers.length > 0}
 <ServerDisplay description="Изменить настройки бота" servers={adminServers} />
-<ServerDisplay description="Сбор данных & таблицы лидера" servers={normalServers} />
+<ServerDisplay description="Сбор данных & таблицы лидеров" servers={normalServers} />
 <ServerDisplay description="Добавить бота на сервер" servers={inviteServers} />
 {:else}
 <div class="center">

@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-    <title>Loading...</title>
+    <title>Загрузка...</title>
 </svelte:head>
 
 <div class="body">
