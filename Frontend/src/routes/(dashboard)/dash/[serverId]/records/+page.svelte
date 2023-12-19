@@ -20,7 +20,7 @@
 
 <h1 class="headline">Записи голосовых каналов</h1>
 
-<div class="body">
+<div class="box default-margin">
     <div in:fly={{y: 50, delay: 500}} class="record">
         <div class="title">
             <div class="column">
@@ -40,7 +40,7 @@
         </div>
     </div>
 </div>
-<div class="body">
+<div class="box default-margin">
     <div in:fly={{y: 50, delay: 500}} class="record">
         <div class="title">
             <div class="column">
@@ -71,9 +71,7 @@
         flex-direction: column;
         padding: 1rem;
         border-radius: 1rem;
-        background-color: var(--onyx);
-        width: 50%;
-        min-width: min(85%, 500px);
+        width: 100%;
 
         .title {
             display: flex;
@@ -149,18 +147,6 @@
         100% {
             transform: translate(-130%, -22%) scale(1);
         }
-    }
-
-    .body {
-        padding: 0;
-        margin: 0;
-        display: flex;
-        height: 100vh;
-        width: 100vw;
-        background-color: var(--eerie-black);
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .column {
