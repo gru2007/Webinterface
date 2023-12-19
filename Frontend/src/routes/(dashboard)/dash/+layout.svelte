@@ -87,6 +87,7 @@
             margin-bottom: 2rem;
         }
     }
+    .content::-webkit-scrollbar { width: 0; }
 
     .space {
         display: flex;
