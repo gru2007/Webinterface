@@ -110,7 +110,7 @@
 {:else}
 <div class="body">
     <span in:scale={{delay: 900}} class="material-icons colored found icon-primary" style="font-size: 80px;">search</span>
-    <h2 in:fly={{y: 50, delay: 500}}>Этой записи не существует!</h2>
+    <h2 in:fly={{y: 50, delay: 500}}>Такой записи нет, либо у Вас нет доступа</h2>
 </div>
 {/if}
 
