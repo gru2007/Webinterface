@@ -80,7 +80,7 @@
         callback();
     }} on:keydown>
         <span class="material-icons icon-medium icon-primary">leaderboard</span>
-        <p class="text-medium">Leaderboards & opt-out</p>
+        <p class="text-medium">Таблица лидеров & сбор данных</p>
     </div>
 
     {/if}
