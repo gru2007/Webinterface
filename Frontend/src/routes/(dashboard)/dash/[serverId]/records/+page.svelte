@@ -16,7 +16,7 @@
 
 <div class="default-margin"></div>
 
-<BooleanSelector icon="screen_record" title="Записи для модерации" description="Все записи, созданные игроками, можно будет скачать в этой панели. При переключении этой функции старые записи будут удалены." settingName="configuration_moderRecords" />
+<BooleanSelector icon="radio_button_checked" title="Записи для модерации" description="Все записи, созданные игроками, можно будет скачать в этой панели. При переключении этой функции старые записи будут удалены." settingName="configuration_moderRecords" />
 
 <h1 class="headline">Записи голосовых каналов</h1>
 
@@ -100,7 +100,7 @@
         display: flex;
         gap: 0.7rem;
         align-items: center;
-        padding: 10px;
+        padding: 20px;
 
         .button {
             height: min-content;
