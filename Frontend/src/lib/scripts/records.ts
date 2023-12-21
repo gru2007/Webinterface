@@ -3,7 +3,7 @@ import { get, post_js } from "./constants";
 
 
 export let recordsLoading = writable(true);
-let records: any[] = [];
+export let records: any[] = [];
 
 export function allRecords(): any[] {
     return records;
