@@ -68,7 +68,7 @@ public class SessionController {
     @GetMapping(value = "/discord", produces = MediaType.APPLICATION_JSON_VALUE)
     public GenericObjectResponse<SessionContainer> completeSession(@RequestParam(name = "code") String code, @RequestParam(name = "state") String state) {
         try {
-            return new GenericObjectResponse<>(true, sessionService.createSession(code, state), "Session created!");
+            return new GenericObjectResponse<>(true, sessionService.createSession(code, state), "Сессия создана!");
         } catch (Exception e) {
             return new GenericObjectResponse<>(false, null, e.getMessage());
         }

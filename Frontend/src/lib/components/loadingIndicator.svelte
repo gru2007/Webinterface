@@ -1,6 +1,6 @@
 <script lang="ts">
     export let size: string = "30";
-    export let message: string = "Something went wrong!";
+    export let message: string = "Что-то пошло не так!";
     export let error: boolean = false;
 </script>
 
