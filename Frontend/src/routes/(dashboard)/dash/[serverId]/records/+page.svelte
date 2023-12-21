@@ -85,9 +85,9 @@
     <h1 class="headline">Записи голосовых каналов</h1>
 
     {#if features.size == 0}    
-    <div class="notfound">
-        <span in:scale={{delay: 900}} class="material-icons colored found icon-primary" style="font-size: 80px;">search</span>
-        <h2 in:fly={{y: 50, delay: 500}}>Записей не было найдено 🥲</h2>
+    <div class="center">
+        <div class="default-margin"></div>
+        <h2>Записей не было найдено 🥲</h2>
     </div>
     {/if}
 
@@ -135,16 +135,6 @@
     @import '$lib/default.scss';
     @import '$lib/styles/box.scss';
 
-    .notfound {
-        padding: 15px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -ms-transform: translateX(-50%) translateY(-50%);
-        -webkit-transform: translate(-50%,-50%);
-        transform: translate(-50%,-50%);
-    }
-
     .center {
         width: 100%;
         height: 100%;
@@ -182,35 +172,7 @@
             }
         }
     }
-
-    .found {
-        position: absolute;
-        animation: found 10s infinite;
-        text-shadow: 2px 2px 10px black;
-        padding-left: 20%;
-    }
-
-    @keyframes found {
-        0% {
-            transform: translate(-130%, -22%) scale(1);
-        }
-        20% {
-            transform: translate(187%, 124%) scale(1.1);
-        }
-        40% {
-            transform: translate(-170%, 82%) scale(0.9);
-        }
-        60% {
-            transform: translate(-37%, -31%) scale(1.2);
-        }
-        80% {
-            transform: translate(140%, 53%) scale(0.9);
-        }
-        100% {
-            transform: translate(-130%, -22%) scale(1);
-        }
-    }
-
+    
     .buttons {
         display: flex;
         gap: 0.7rem;
