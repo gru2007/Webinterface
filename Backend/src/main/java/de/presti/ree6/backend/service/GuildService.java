@@ -22,6 +22,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.UserSnowflake;
 import net.dv8tion.jda.api.entities.channel.middleman.StandardGuildMessageChannel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -433,14 +434,14 @@ public class GuildService {
         if (recording == null)
             throw new IllegalAccessException("Recording not found!");
 
-        if (guilds.stream().anyMatch(g -> g.getId().equalsIgnoreCase(recording.getGuildId()))) {
+        boolean hasGuild = BotWorker.getShardManager().getGuildById(recording.getGuildId()).isMember(UserSnowflake.fromId(sessionContainer.getUser().getId()));
+        if (hasGuild) {
             boolean found = false;
 
             boolean moderAccess = false;
             try {
-                OAuth2User requester = Server.getInstance().getOAuth2Client().getUser(sessionContainer.getSession()).complete();
                 moderAccess = SQLSession.getSqlConnector().getSqlWorker().getSetting(recording.getGuildId(), "configuration_moder_records").getBooleanValue()
-                        && BotWorker.getShardManager().getGuildById(recording.getGuildId()).retrieveMemberById(requester.getId()).complete().hasPermission(Permission.VOICE_MUTE_OTHERS);
+                        && BotWorker.getShardManager().getGuildById(recording.getGuildId()).retrieveMemberById(sessionContainer.getUser().getId()).complete().hasPermission(Permission.VOICE_MUTE_OTHERS);
 
             } catch (Exception ignore) {
             }
@@ -471,19 +472,10 @@ public class GuildService {
         return new RecordContainer(getRecording(sessionIdentifier, recordId));
     }
 
-    public List<RecordContainer> getRecordContainers(String sessionIdentifier, String guildId) throws IllegalAccessException {
+    public List<String> getRecordContainers(String sessionIdentifier, String guildId) throws IllegalAccessException {
         Map<String, String> records = SQLSession.getSqlConnector().getSqlWorker().getRecordings(guildId);
 
-        List<RecordContainer> containers = new ArrayList<>(java.util.Collections.emptyList());
-
-        records.keySet().forEach(record_id -> {
-            try {
-                containers.add(new RecordContainer(getRecording(sessionIdentifier, record_id)));
-            } catch (Exception ignore) {
-            }
-        });
-
-        return containers;
+        return new ArrayList<String>(records.keySet());
     }
 
     public byte[] getRecordingBytes(String sessionIdentifier, String recordId) throws IllegalAccessException {

@@ -296,7 +296,7 @@ public class GuildController {
     //region Recording
 
     @GetMapping(value = "/{guildId}/recordings", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericObjectResponse<List<RecordContainer>> retrieveRecordings(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+    public GenericObjectResponse<List<String>> retrieveRecordings(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
         try {
             return new GenericObjectResponse<>(true, guildService.getRecordContainers(sessionIdentifier, guildId), "Recordings retrieved!");
         } catch (Exception e) {
