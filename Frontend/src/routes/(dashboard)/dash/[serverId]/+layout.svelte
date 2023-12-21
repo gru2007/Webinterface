@@ -4,7 +4,6 @@
     import { loadSettings } from "$lib/scripts/settings";
     import { loadRecords } from "$lib/scripts/records";
     import { onDestroy } from "svelte";
-    import { loadRecords } from "../../../../lib/scripts/records";
 
     let sub = currentServer.subscribe(async (server) => {
         if(server.id == 0) return;
