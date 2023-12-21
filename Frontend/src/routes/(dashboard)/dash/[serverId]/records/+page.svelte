@@ -97,6 +97,14 @@
     @import '$lib/default.scss';
     @import '$lib/styles/box.scss';
 
+    .center {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .record {
         display: flex;
         flex-direction: column;
