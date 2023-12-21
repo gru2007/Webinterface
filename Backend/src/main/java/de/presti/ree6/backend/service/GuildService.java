@@ -3,6 +3,10 @@ package de.presti.ree6.backend.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import com.jagrosh.jdautilities.oauth2.entities.OAuth2Guild;
+import com.jagrosh.jdautilities.oauth2.entities.OAuth2User;
+import de.presti.ree6.backend.Server;
+import de.presti.ree6.backend.bot.BotWorker;
 import de.presti.ree6.backend.utils.data.container.*;
 import de.presti.ree6.backend.utils.data.container.api.GenericNotifierRequest;
 import de.presti.ree6.backend.utils.data.container.guild.GuildContainer;
@@ -14,6 +18,7 @@ import de.presti.ree6.sql.SQLSession;
 import de.presti.ree6.sql.entities.*;
 import de.presti.ree6.sql.entities.custom.CustomCommand;
 import de.presti.ree6.sql.entities.webhook.*;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -431,6 +436,15 @@ public class GuildService {
         if (guilds.stream().anyMatch(g -> g.getId().equalsIgnoreCase(recording.getGuildId()))) {
             boolean found = false;
 
+            boolean moderAccess = false;
+            try {
+                OAuth2User requester = Server.getInstance().getOAuth2Client().getUser(sessionContainer.getSession()).complete();
+                moderAccess = SQLSession.getSqlConnector().getSqlWorker().getSetting(recording.getGuildId(), "configuration_moder_records").getBooleanValue()
+                        && BotWorker.getShardManager().getGuildById(recording.getGuildId()).retrieveMemberById(requester.getId()).complete().hasPermission(Permission.VOICE_MUTE_OTHERS);
+
+            } catch (Exception ignore) {
+            }
+
             for (JsonElement element : recording.getJsonArray()) {
                 if (element.isJsonPrimitive()) {
                     JsonPrimitive primitive = element.getAsJsonPrimitive();
@@ -440,11 +454,13 @@ public class GuildService {
                     }
                 }
             }
+            if (moderAccess)
+                found = true;
 
             if (found) {
                 return recording;
             } else {
-                throw new IllegalAccessException("You were not part of this recording.");
+                throw new IllegalAccessException("You were not part of this recording or haven't moderator permissions.");
             }
         } else {
             throw new IllegalAccessException("You were not part of the Guild this recording was made in!");
@@ -455,9 +471,25 @@ public class GuildService {
         return new RecordContainer(getRecording(sessionIdentifier, recordId));
     }
 
+    public List<RecordContainer> getRecordContainers(String sessionIdentifier, String guildId) throws IllegalAccessException {
+        Map<String, String> records = SQLSession.getSqlConnector().getSqlWorker().getRecordings(guildId);
+
+        List<RecordContainer> containers = new ArrayList<>(java.util.Collections.emptyList());
+
+        records.keySet().forEach(record_id -> {
+            try {
+                containers.add(new RecordContainer(getRecording(sessionIdentifier, record_id)));
+            } catch (Exception ignore) {
+            }
+        });
+
+        return containers;
+    }
+
     public byte[] getRecordingBytes(String sessionIdentifier, String recordId) throws IllegalAccessException {
         Recording recording = getRecording(sessionIdentifier, recordId);
-        SQLSession.getSqlConnector().getSqlWorker().deleteEntity(recording);
+        if (!SQLSession.getSqlConnector().getSqlWorker().getSetting(recording.getGuildId(), "configuration_moder_records").getBooleanValue())
+            SQLSession.getSqlConnector().getSqlWorker().deleteEntity(recording);
         return recording.getRecording();
     }
 
