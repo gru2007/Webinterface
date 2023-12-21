@@ -59,7 +59,7 @@
             <div class="column">
                 <div class="user">
                     <img src={recording.creator.avatarUrl} alt="hi">
-                    <h2 class="text-large">{recording.creator.name}</h2>
+                    <h2 class="text-large">{recording.creator.name} ({recording.id})</h2>
                 </div>
                 <p>Записано {new Date(parseInt(recording.creationTime)).toLocaleDateString("en-AU")}</p>
             </div>
