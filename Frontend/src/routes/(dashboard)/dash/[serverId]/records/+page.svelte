@@ -66,7 +66,7 @@
 
             <div class="buttons">
                 <div class="button" on:click={async () => {
-                    const res = await get("/guilds/recording/download?recordId=" + $page.url.searchParams.get("id"));
+                    const res = await get("/guilds/recording/download?recordId=" + recording.id);
                     const blob = await res.blob();
 
                     const url = window.URL.createObjectURL(blob);
