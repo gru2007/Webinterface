@@ -5,6 +5,8 @@
     import { allRecords, recordsLoading, Record } from "$lib/scripts/records";
     import { onDestroy } from "svelte";
     import { currentServer } from "$lib/scripts/servers";
+    import LoadingIndicator from "../loadingIndicator.svelte";
+    import { get } from "$lib/scripts/constants";
 
 
     let loadingFeature = "";
@@ -48,44 +50,32 @@
 
 <h1 class="headline">Записи голосовых каналов</h1>
 
-<div class="box default-margin">
-    <div in:fly={{y: 50, delay: 500}} class="record">
-        <div class="title">
-            <div class="column">
-                <div class="user">
-                    <img src="https://cdn.discordapp.com/avatars/434280207847784449/c7e6fcd66027352b91c6ae45c8075465.png" alt="hi">
-                    <h2 class="text-large">gru__</h2>
-                </div>
-                <p>Записано 19/12/2023</p>
-            </div>
-
-            <div class="buttons">
-                <div class="button">
-                    <span class="material-icons icon-medium icon-primary clickable">download</span>
-                    <p class="text-medium">Скачать</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {#if !$recordsLoading && loaded}
-    {#each Array.from(features.values()) as feature}
-        <p class="text-small">{feature.id} {feature.value}</p>
-    {/each}
-{/if}
+
+{#each Array.from(features.values()) as recording}
 <div class="box default-margin">
     <div in:fly={{y: 50, delay: 500}} class="record">
         <div class="title">
             <div class="column">
                 <div class="user">
-                    <img src="https://cdn.discordapp.com/avatars/434280207847784449/c7e6fcd66027352b91c6ae45c8075465.png" alt="hi">
-                    <h2 class="text-large">gru__</h2>
+                    <img src={recording.creator.avatarUrl} alt="hi">
+                    <h2 class="text-large">{recording.creator.name}</h2>
                 </div>
-                <p>Записано 19/12/2023</p>
+                <p>Записано {new Date(parseInt(recording.creationTime)).toLocaleDateString("en-AU")}</p>
             </div>
 
             <div class="buttons">
-                <div class="button">
+                <div class="button" on:click={async () => {
+                    const res = await get("/guilds/recording/download?recordId=" + $page.url.searchParams.get("id"));
+                    const blob = await res.blob();
+
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = "recording.wav";
+                    link.click();
+
+                }} on:keydown>
                     <span class="material-icons icon-medium icon-primary clickable">download</span>
                     <p class="text-medium">Скачать</p>
                 </div>
@@ -93,7 +83,11 @@
         </div>
     </div>
 </div>
+{/each}
 
+{:else}
+    <LoadingIndicator size="45" />
+{/if}
 
 <style lang="scss">
     @import '$lib/default.scss';
