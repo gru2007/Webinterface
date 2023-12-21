@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { page } from "$app/stores";
   import BooleanSelector from "$lib/components/settings/booleanSelector.svelte";
   import { fly, scale } from "svelte/transition";
