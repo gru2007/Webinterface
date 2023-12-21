@@ -17,28 +17,21 @@
             loaded = false;
             const map = allRecords();
             map.forEach((value, key) => {
-                const unsub = value.value.subscribe((item) => {
-                    features.set(key, {
-                        id: value.id,
-                        guildId: value.guildId,
-                        voiceChannel: value.voiceChannel,
-                        creationTime: value.creationTime,
-                        creator: {
-                            id: value.creator.id,
-                            name: value.creator.name,
-                            discriminator: value.creator.discriminator,
-                            avatarUrl: value.creator.avatarUrl
-                        }
-                    })
+                features.set(key, {
+                    id: value.id,
+                    guildId: value.guildId,
+                    voiceChannel: value.voiceChannel,
+                    creationTime: value.creationTime,
+                    creator: {
+                        id: value.creator.id,
+                        name: value.creator.name,
+                        discriminator: value.creator.discriminator,
+                        avatarUrl: value.creator.avatarUrl
+                    }
                 })
-                unsub();
             });
             loaded = true;
         }
-    })
-
-    onDestroy(() => {
-        sub();
     })
 
 </script>
