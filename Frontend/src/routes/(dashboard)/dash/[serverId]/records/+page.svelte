@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { page } from "$app/stores";
-  import BooleanSelector from "$lib/components/settings/booleanSelector.svelte";
-  import { fly, scale } from "svelte/transition";
-  import { allRecords, recordsLoading, Record } from "$lib/scripts/records";
-
-
+    import { page } from "$app/stores";
+    import BooleanSelector from "$lib/components/settings/booleanSelector.svelte";
+    import { fly, scale } from "svelte/transition";
+    import { allRecords, recordsLoading, Record } from "$lib/scripts/records";
+    import { onDestroy } from "svelte";
     import { currentServer } from "$lib/scripts/servers";
+
 
     let loadingFeature = "";
     let loaded = true;
@@ -35,6 +35,10 @@
             });
             loaded = true;
         }
+    })
+
+    onDestroy(() => {
+        sub();
     })
 
 </script>
