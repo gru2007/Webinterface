@@ -1,6 +1,18 @@
 import { writable, type Writable } from "svelte/store";
 import { get, post_js } from "./constants";
 
+export type Record = {
+    id: string,
+    guildId: string,
+    voiceChannel: string,
+    creationTime: string,
+    creator: {
+        id: string,
+        name: string,
+        discriminator: string,
+        avatarUrl: string
+    }
+}
 
 export let recordsLoading = writable(true);
 export let records: any[] = [];

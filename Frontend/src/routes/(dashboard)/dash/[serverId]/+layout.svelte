@@ -14,6 +14,8 @@
             currentError.set(true)
             return;
         }
+        
+        loadRecords(server.id + "");
 
         const json = await res.json()
 
@@ -45,7 +47,6 @@
 
         // Load settings
         loadSettings(server.id + "");
-        loadRecords(server.id + "");
     })
 
     onDestroy(() => {

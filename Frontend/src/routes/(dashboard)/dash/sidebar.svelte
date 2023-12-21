@@ -47,6 +47,11 @@
             link: "/news",
         },
         {
+            icon: "mic",
+            name: "Голосовые записи",
+            link: "/records",
+        },
+        {
             icon: "leaderboard",
             name: "Таблица лидеров",
             link: "/leaderboards",
@@ -81,6 +86,13 @@
     }} on:keydown>
         <span class="material-icons icon-medium icon-primary">leaderboard</span>
         <p class="text-medium">Таблица лидеров & сбор данных</p>
+    </div>
+    <div in:fade class="element {$page.url.pathname.startsWith("/dash/" + $currentServer.id + "/records") ? "element-selected" : ""}" on:click={() => {
+        goto("/dash/" + $currentServer.id + "/records")
+        callback();
+    }} on:keydown>
+        <span class="material-icons icon-medium icon-primary">mic</span>
+        <p class="text-medium">Голосовые записи</p>
     </div>
 
     {/if}

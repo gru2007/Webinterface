@@ -2,11 +2,23 @@
     import { page } from "$app/stores";
     import BooleanSelector from "$lib/components/settings/booleanSelector.svelte";
     import { fly, scale } from "svelte/transition";
-    import { allRecords, recordsLoading, Record, records } from "$lib/scripts/records";
+    import { allRecords, recordsLoading, records } from "$lib/scripts/records";
     import { onDestroy } from "svelte";
     import { currentServer } from "$lib/scripts/servers";
     import LoadingIndicator from "$lib/components/loadingIndicator.svelte";
     import { get, get_js } from "$lib/scripts/constants";
+    type Record = {
+        id: string,
+        guildId: string,
+        voiceChannel: string,
+        creationTime: string,
+        creator: {
+            id: string,
+            name: string,
+            discriminator: string,
+            avatarUrl: string
+        }
+    }
 
 
     let loadingFeature = "";
@@ -14,32 +26,40 @@
     let loading = false;
     let features: Map<string, Record> = new Map();
 
-    let sub = recordsLoading.subscribe(value => {
+    recordsLoading.subscribe(async value => {
         if(!value) {
             loaded = false;
-            records.forEach(recordId => {
-                const json = get_js("/guilds/recording?recordId=" + recordId);
+            let loadedrecs: any[] = records;
+            records.forEach(async recordId => {
+                const json = await get_js("/guilds/recording?recordId=" + recordId);
 
                 if(!json.success) {
+                    var index = loadedrecs.indexOf(recordId);
+                    if (index !== -1) {
+                        loadedrecs.splice(index, 1);
+                    }
+                    if (loadedrecs.length == 0) {
+                        loaded = true;
+                    }
                     return;
                 }
 
-                const data = json.object;
-
                 features.set(recordId, {
-                    id: data.id,
-                    guildId: data.guildId,
-                    voiceChannel: data.voiceChannel,
-                    creationTime: data.creationTime,
+                    id: json.object.id,
+                    guildId: json.object.guildId,
+                    voiceChannel: json.object.voiceChannel,
+                    creationTime: json.object.creationTime,
                     creator: {
-                        id: data.creator.id,
-                        name: data.creator.name,
-                        discriminator: data.creator.discriminator,
-                        avatarUrl: data.creator.avatarUrl
+                        id: json.object.creator.id,
+                        name: json.object.creator.name,
+                        discriminator: json.object.creator.discriminator,
+                        avatarUrl: json.object.creator.avatarUrl
                     }
                 })
+                if (features.size == loadedrecs.length) {
+                    loaded = true;
+                }
             });
-            loaded = true;
         }
     })
 
@@ -55,7 +75,7 @@
 
 <div class="default-margin"></div>
 
-<BooleanSelector icon="radio_button_checked" title="Записи для модерации" description="Все записи, созданные игроками, можно будет скачать в этой панели. При переключении этой функции старые записи будут удалены." settingName="configuration_moder_records" />
+<BooleanSelector icon="radio_button_checked" title="Записи для модерации" description="Модерация с правом мутить в войсах сможет скачивать записи всех пользователей из этой панели (по умолчанию только свои). Это снизит приватность." settingName="configuration_moder_records" />
 
 {/if}
 
@@ -63,6 +83,13 @@
 
 <div in:fly={{y: 100, delay: 500}} class="transition">
     <h1 class="headline">Записи голосовых каналов</h1>
+
+    {#if features.size == 0}    
+    <div class="notfound">
+        <span in:scale={{delay: 900}} class="material-icons colored found icon-primary" style="font-size: 80px;">search</span>
+        <h2 in:fly={{y: 50, delay: 500}}>Такой записи нет, либо у Вас нет доступа</h2>
+    </div>
+    {/if}
 
     {#each Array.from(features.values()) as recording}
     <div class="box default-margin">
@@ -108,6 +135,16 @@
     @import '$lib/default.scss';
     @import '$lib/styles/box.scss';
 
+    .notfound {
+        padding: 15px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
     .center {
         width: 100%;
         height: 100%;
@@ -143,6 +180,34 @@
                     object-fit: cover;
                 }
             }
+        }
+    }
+
+    .found {
+        position: absolute;
+        animation: found 10s infinite;
+        text-shadow: 2px 2px 10px black;
+        padding-left: 20%;
+    }
+
+    @keyframes found {
+        0% {
+            transform: translate(-130%, -22%) scale(1);
+        }
+        20% {
+            transform: translate(187%, 124%) scale(1.1);
+        }
+        40% {
+            transform: translate(-170%, 82%) scale(0.9);
+        }
+        60% {
+            transform: translate(-37%, -31%) scale(1.2);
+        }
+        80% {
+            transform: translate(140%, 53%) scale(0.9);
+        }
+        100% {
+            transform: translate(-130%, -22%) scale(1);
         }
     }
 
