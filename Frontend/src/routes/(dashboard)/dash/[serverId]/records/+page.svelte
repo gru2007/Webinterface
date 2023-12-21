@@ -42,11 +42,15 @@
     <title>Записи - { $currentServer.name }</title>
 </svelte:head>
 
+{#if $currentServer.admin}
+
 <h1 class="headline">Настройки записи</h1>
 
 <div class="default-margin"></div>
 
 <BooleanSelector icon="radio_button_checked" title="Записи для модерации" description="Все записи, созданные игроками, можно будет скачать в этой панели. При переключении этой функции старые записи будут удалены." settingName="configuration_moder_records" />
+
+{/if}
 
 {#if !$recordsLoading && loaded}
 
