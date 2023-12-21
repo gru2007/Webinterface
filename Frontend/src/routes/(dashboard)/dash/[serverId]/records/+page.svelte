@@ -2,11 +2,11 @@
     import { page } from "$app/stores";
     import BooleanSelector from "$lib/components/settings/booleanSelector.svelte";
     import { fly, scale } from "svelte/transition";
-    import { allRecords, recordsLoading, Record } from "$lib/scripts/records";
+    import { allRecords, recordsLoading, Record, records } from "$lib/scripts/records";
     import { onDestroy } from "svelte";
     import { currentServer } from "$lib/scripts/servers";
     import LoadingIndicator from "$lib/components/loadingIndicator.svelte";
-    import { get } from "$lib/scripts/constants";
+    import { get, get_js } from "$lib/scripts/constants";
 
 
     let loadingFeature = "";
@@ -17,18 +17,25 @@
     let sub = recordsLoading.subscribe(value => {
         if(!value) {
             loaded = false;
-            const map = allRecords();
-            map.forEach((value, key) => {
-                features.set(key, {
-                    id: value.id,
-                    guildId: value.guildId,
-                    voiceChannel: value.voiceChannel,
-                    creationTime: value.creationTime,
+            records.forEach(recordId => {
+                const json = get_js("/guilds/recording?recordId=" + recordId);
+
+                if(!json.success) {
+                    return;
+                }
+
+                const data = json.object;
+
+                features.set(recordId, {
+                    id: data.id,
+                    guildId: data.guildId,
+                    voiceChannel: data.voiceChannel,
+                    creationTime: data.creationTime,
                     creator: {
-                        id: value.creator.id,
-                        name: value.creator.name,
-                        discriminator: value.creator.discriminator,
-                        avatarUrl: value.creator.avatarUrl
+                        id: data.creator.id,
+                        name: data.creator.name,
+                        discriminator: data.creator.discriminator,
+                        avatarUrl: data.creator.avatarUrl
                     }
                 })
             });
