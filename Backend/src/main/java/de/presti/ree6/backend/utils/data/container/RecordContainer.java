@@ -19,6 +19,7 @@ public class RecordContainer {
     String guildId;
     String voiceChannel;
     UserContainer creator;
+    String id;
 
     public RecordContainer(Recording recording) {
         ///this.data = Base64.encodeBase64String(recording.getRecording());
@@ -26,5 +27,6 @@ public class RecordContainer {
         this.guildId = recording.getGuildId();
         this.voiceChannel = recording.getVoiceId();
         this.creator = new UserContainer(BotWorker.getShardManager().retrieveUserById(recording.getCreatorId()).complete());
+        this.id = recording.getIdentifier();
     }
 }

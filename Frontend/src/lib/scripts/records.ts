@@ -3,7 +3,15 @@ import { get, post_js } from "./constants";
 
 export type Record = {
     id: string,
-    guildid: string
+    guildId: string,
+    voiceChannel: string,
+    creationTime: string,
+    creator: {
+        id: string,
+        name: string,
+        discriminator: string,
+        avatarUrl: string
+    }
 }
 
 export let recordsLoading = writable(true);
@@ -20,19 +28,19 @@ export function allRecords(): Map<string, Record> {
     return map;
 }
 
-export function createRecord(id: string, guild: string) {
-
-    if(records.has(id)) {
-        let record = record.get(id)!;
-        record.guildid.set(guild);
-
-        records.set(id, record)
-        return;
-    }
+export function createRecord(id: string, guild: string, voiceChannel: string, creationTime: string, creatid: string, name: string, discriminator: string, avatarUrl: string) {
 
     records.set(id, {
         id: id,
-        guildid: guild
+        guildId: guild,
+        voiceChannel: voiceChannel,
+        creationTime: creationTime,
+        creator: {
+            id: creatid,
+            name: name,
+            discriminator: discriminator,
+            avatarUrl: avatarUrl
+        }
     });
 }
 
@@ -50,7 +58,7 @@ export async function loadRecords(guild: string) {
     const objects: any[] = data.object;
     
     objects.forEach((obj) => {
-        createRecord(obj.id, obj.guild)
+        createRecord(obj.id, obj.guildId, obj.voiceChannel, obj.creationTime, obj.creator.id, obj.creator.name, obj.creator.discriminator, obj.creator.avatarUrl)
     });
 
     recordsLoading.set(false);
