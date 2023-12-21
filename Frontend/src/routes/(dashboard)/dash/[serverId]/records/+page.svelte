@@ -5,7 +5,7 @@
     import { allRecords, recordsLoading, Record } from "$lib/scripts/records";
     import { onDestroy } from "svelte";
     import { currentServer } from "$lib/scripts/servers";
-    import LoadingIndicator from "../loadingIndicator.svelte";
+    import LoadingIndicator from "$lib/components/loadingIndicator.svelte";
     import { get } from "$lib/scripts/constants";
 
 
