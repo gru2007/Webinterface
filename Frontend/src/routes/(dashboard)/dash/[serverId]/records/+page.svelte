@@ -2,9 +2,12 @@
   import { page } from "$app/stores";
   import BooleanSelector from "$lib/components/settings/booleanSelector.svelte";
   import { fly, scale } from "svelte/transition";
+  import { allRecords } from "$lib/scripts/records";
 
 
     import { currentServer } from "$lib/scripts/servers";
+
+    console.log(allRecords())
 
 </script>
 
