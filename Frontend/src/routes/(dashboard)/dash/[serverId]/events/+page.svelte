@@ -20,7 +20,7 @@
 
 <div class="default-margin"></div>
 
-<ChannelSelector icon="security" title="Действия модераторов" description="В этот канал будут отправлены все акты правосудия над пользователями." endpoint={"/guilds/" + $page.params.serverId + "/modlog"} />
+<ChannelSelector icon="security" title="Отчёты модераторов" description="В этот канал будут отправлены отчеты модераторов, отправленные через /report." endpoint={"/guilds/" + $page.params.serverId + "/modlog"} />
 
 <h1 class="headline">Настройки входа</h1>
 
