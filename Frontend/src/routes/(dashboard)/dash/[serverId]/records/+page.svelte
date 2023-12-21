@@ -26,7 +26,7 @@
     let loading = false;
     let features: Map<string, Record> = new Map();
 
-    let sub = recordsLoading.subscribe(async value => {
+    recordsLoading.subscribe(async value => {
         if(!value) {
             loaded = false;
             let loadedrecs: any[] = records;
@@ -61,10 +61,6 @@
                 }
             });
         }
-    })
-
-    onDestroy(() => {
-        sub();
     })
 
 </script>
