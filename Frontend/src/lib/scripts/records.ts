@@ -39,7 +39,7 @@ export function createRecord(id: string, guild: string) {
 export async function loadRecords(guild: string) {
     recordsLoading.set(true);
 
-    const res = await get("/" + guild + "/recordings/");
+    const res = await get("/guilds/" + guild + "/recordings/");
 
     if (res.status != 200) {
         return;
