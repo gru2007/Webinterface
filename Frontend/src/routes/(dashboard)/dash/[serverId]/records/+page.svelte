@@ -2,12 +2,40 @@
   import { page } from "$app/stores";
   import BooleanSelector from "$lib/components/settings/booleanSelector.svelte";
   import { fly, scale } from "svelte/transition";
-  import { allRecords } from "$lib/scripts/records";
+  import { allRecords, recordsLoading, Record } from "$lib/scripts/records";
 
 
     import { currentServer } from "$lib/scripts/servers";
 
-    console.log(allRecords())
+    let loadingFeature = "";
+    let loaded = true;
+    let loading = false;
+    let features: Map<string, Record> = new Map();
+
+    let sub = recordsLoading.subscribe(value => {
+        if(!value) {
+            loaded = false;
+            const map = allRecords();
+            map.forEach((value, key) => {
+                const unsub = value.value.subscribe((item) => {
+                    features.set(key, {
+                        id: value.id,
+                        guildId: value.guildId,
+                        voiceChannel: value.voiceChannel,
+                        creationTime: value.creationTime,
+                        creator: {
+                            id: value.creator.id,
+                            name: value.creator.name,
+                            discriminator: value.creator.discriminator,
+                            avatarUrl: value.creator.avatarUrl
+                        }
+                    })
+                })
+                unsub();
+            });
+            loaded = true;
+        }
+    })
 
 </script>
 
@@ -43,6 +71,11 @@
         </div>
     </div>
 </div>
+{#if !$recordsLoading && loaded}
+    {#each Array.from(features.values()) as feature}
+        <p class="text-small">{feature.id} {feature.value}</p>
+    {/each}
+{/if}
 <div class="box default-margin">
     <div in:fly={{y: 50, delay: 500}} class="record">
         <div class="title">
