@@ -48,45 +48,49 @@
 
 <BooleanSelector icon="radio_button_checked" title="Записи для модерации" description="Все записи, созданные игроками, можно будет скачать в этой панели. При переключении этой функции старые записи будут удалены." settingName="configuration_moder_records" />
 
-<h1 class="headline">Записи голосовых каналов</h1>
-
 {#if !$recordsLoading && loaded}
 
-{#each Array.from(features.values()) as recording}
-<div class="box default-margin">
-    <div in:fly={{y: 50, delay: 500}} class="record">
-        <div class="title">
-            <div class="column">
-                <div class="user">
-                    <img src={recording.creator.avatarUrl} alt="hi">
-                    <h2 class="text-large">{recording.creator.name}</h2>
+<div in:fly={{y: 100, delay: 500}} class="transition">
+    <h1 class="headline">Записи голосовых каналов</h1>
+
+    {#each Array.from(features.values()) as recording}
+    <div class="box default-margin">
+        <div in:fly={{y: 50, delay: 500}} class="record">
+            <div class="title">
+                <div class="column">
+                    <div class="user">
+                        <img src={recording.creator.avatarUrl} alt="hi">
+                        <h2 class="text-large">{recording.creator.name}</h2>
+                    </div>
+                    <p>Записано: {new Date(parseInt(recording.creationTime)).toLocaleDateString("en-AU")} | ID Записи: {recording.id}</p>
                 </div>
-                <p>Записано: {new Date(parseInt(recording.creationTime)).toLocaleDateString("en-AU")} | ID Записи: {recording.id}</p>
-            </div>
 
-            <div class="buttons">
-                <div class="button" on:click={async () => {
-                    const res = await get("/guilds/recording/download?recordId=" + recording.id);
-                    const blob = await res.blob();
+                <div class="buttons">
+                    <div class="button" on:click={async () => {
+                        const res = await get("/guilds/recording/download?recordId=" + recording.id);
+                        const blob = await res.blob();
 
-                    const url = window.URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = "recording.wav";
-                    link.click();
+                        const url = window.URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = "recording.wav";
+                        link.click();
 
-                }} on:keydown>
-                    <span class="material-icons icon-medium icon-primary clickable">download</span>
-                    <p class="text-medium">Скачать</p>
+                    }} on:keydown>
+                        <span class="material-icons icon-medium icon-primary clickable">download</span>
+                        <p class="text-medium">Скачать</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    {/each}
 </div>
-{/each}
 
 {:else}
-    <LoadingIndicator size="45" />
+<div out:scale class="center">
+    <LoadingIndicator size="100" />
+</div>
 {/if}
 
 <style lang="scss">
