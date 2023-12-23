@@ -29,7 +29,7 @@
 </script>
 
 <svelte:head>
-    <title>Moderation - {$currentServer.name}</title>
+    <title>Модерация - {$currentServer.name}</title>
 </svelte:head>
 
 <h1 class="headline">Настройки модерации</h1>

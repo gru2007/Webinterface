@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-    <title>Interactions - { $currentServer.name }</title>
+    <title>Утилиты - { $currentServer.name }</title>
 </svelte:head>
 
 <h1 class="headline">Тикеты</h1>
