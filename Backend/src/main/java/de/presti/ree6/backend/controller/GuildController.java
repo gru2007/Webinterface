@@ -660,6 +660,40 @@ public class GuildController {
 
     //endregion
 
+    //region BanSync
+
+    @GetMapping(value = "/{guildId}/bansync", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GenericObjectResponse<String> retrieveBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+        try {
+            return new GenericObjectResponse<>(true, guildService.getSyncBans(sessionIdentifier, guildId), "Following Bans retrieved!");
+        } catch (Exception e) {
+            return new GenericObjectResponse<>(false, null, e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/{guildId}/bansync/remove", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GenericResponse removeBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+        try {
+            guildService.setSyncBans(sessionIdentifier, guildId, "-1");
+            return new GenericResponse(true, "Following Bans removed!");
+        } catch (Exception e) {
+            return new GenericResponse(false, e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/{guildId}/bansync/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    public GenericResponse addBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId, @RequestBody BanSyncRequest following) {
+        try {
+            guildService.setSyncBans(sessionIdentifier, guildId, following.guildId());
+            return new GenericResponse(true, "Following Bans added!");
+        } catch (Exception e) {
+            return new GenericResponse(false, e.getMessage());
+        }
+    }
+
+
+    //endregion
+
     //region Tickets
 
     @GetMapping(value = "/{guildId}/tickets", produces = MediaType.APPLICATION_JSON_VALUE)

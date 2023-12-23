@@ -73,7 +73,7 @@
 {#if picking}
 <DataPopup title="Создать {models[currentModel].name.toLowerCase()}" builder={() => {
     return structuredClone(models[currentModel].model);
-}} action1="Create" action2="Cancel" action1Handler={async (content) => {
+}} action1="Создать" action2="Отмена" action1Handler={async (content) => {
     picking = false;
     
     const body = model2JSON(content);

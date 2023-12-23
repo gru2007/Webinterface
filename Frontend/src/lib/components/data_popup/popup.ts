@@ -39,7 +39,11 @@ export function jsonIntoModel(model: ConfigurableDataType<any>[], json: any) {
     const entries = Object.entries(json);
     model.forEach((data: ConfigurableDataType<any>) => {
         if(data.type == "string" || data.type == "int" || data.type == "selector") {
-            data.value = (entries.find((entry: any) => entry[0] == data.jsonResName) ?? ["", null])[1]
+            if (data.jsonResName == ".") { // типа если ответ это 1 строка, да тупо, но нахуй засорять классами Jar
+                data.value = json
+            } else {
+                data.value = (entries.find((entry: any) => entry[0] == data.jsonResName) ?? ["", null])[1]
+            }
         } else if(data.type == "channel") {
 
             const value: any = (entries.find((entry: any) => entry[0] == data.jsonResName) ?? ["", null])[1];

@@ -3,6 +3,7 @@
     import DataPopup from "$lib/components/data_popup/dataPopup.svelte";
     import MassBoolean from "$lib/components/settings/massBoolean.svelte";
     import MassDataSelector from "$lib/components/settings/massDataSelector.svelte";
+    import MassDataSetup from "$lib/components/settings/massDataSetup.svelte";
     import MassStringSelector from "$lib/components/settings/massStringSelector.svelte";
     import StringSelector from "$lib/components/settings/stringSelector.svelte";
     import MessageSelector from "$lib/components/settings/messageSelector.svelte";
@@ -46,6 +47,32 @@
 <MassBoolean icon="keyboard_command_key" title="Включенные команды" description="Настройте все команды, которые можно выполнить с помощью бота." prefix="command_" />
 
 <h1 class="headline">Варны & наказания</h1>
+
+<div class="default-margin"></div>
+
+<MassDataSetup icon="sync" title="Синхронизация банов" description="При банах на указанном сервере автоматически продублирует их на этот." endpoint={"/guilds/" + $page.params.serverId + "/bansync"}
+model={[
+    {
+        name: "ID сервера-матери",
+        jsonName: "guildId",
+        type: "string",
+        unit: "",
+        value: "996141113847074826",
+        visible: true,
+        jsonResName: "."
+    }
+]}
+
+isEnabled={(json) => {
+    return json != "-1"
+}}
+
+primaryIcon="check"
+render={(json) => {
+    return "Баны на сервере с ID "+json+", будут продублированы на сервере "+$currentServer.name+"."
+}}
+
+/>
 
 <div class="default-margin"></div>
 

@@ -551,6 +551,18 @@ public class GuildService {
 
     //endregion
 
+    //region SyncBans
+
+    public String getSyncBans(String sessionIdentifier, String guildId) throws IllegalAccessException {
+        return SQLSession.getSqlConnector().getSqlWorker().getSetting(guildId, "configuration_ban_server").getStringValue();
+    }
+
+    public void setSyncBans(String sessionIdentifier, String guildId, String following) throws IllegalAccessException {
+        SQLSession.getSqlConnector().getSqlWorker().setSetting(guildId, "configuration_ban_server", "Ban sync server", following);
+    }
+
+    //endregion
+
     //region Ticket
 
     public TicketContainer getTicket(String sessionIdentifier, String guildId) throws IllegalAccessException {

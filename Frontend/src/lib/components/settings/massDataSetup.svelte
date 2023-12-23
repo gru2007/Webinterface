@@ -75,7 +75,7 @@ action1Handler={async (data) => {
     reload();
 }}
 
-action2="Cancel"
+action2="Отмена"
 action2Handler={() => picking = false}
 
 />
