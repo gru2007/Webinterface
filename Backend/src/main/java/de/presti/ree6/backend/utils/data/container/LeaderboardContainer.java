@@ -1,5 +1,6 @@
 package de.presti.ree6.backend.utils.data.container;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import de.presti.ree6.backend.utils.data.container.user.UserLevelContainer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 public class LeaderboardContainer {
 
-    String guildId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    long guildId;
 
     List<UserLevelContainer> chatLeaderboard;
 

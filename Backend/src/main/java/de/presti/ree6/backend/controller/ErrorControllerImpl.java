@@ -23,23 +23,17 @@ public class ErrorControllerImpl implements ErrorController {
     private final ErrorAttributes errorAttributes;
 
     /**
-     * The Application version;
-     */
-    private final String version;
-
-    /**
      * Controller for the Error Controller
      *
      * @param errorAttributes Attributes that give more Info about the Error.
      */
     public ErrorControllerImpl(ErrorAttributes errorAttributes) {
         this.errorAttributes = errorAttributes;
-        String tempVersion = Server.getInstance().getClass().getPackage().getImplementationVersion();
-        version = tempVersion == null ? "4.0.6" : tempVersion;
     }
 
     /**
      * Handle received Error.
+     *
      * @param request Request that was sent.
      * @return Generic Response with the Error Message.
      */
@@ -47,16 +41,17 @@ public class ErrorControllerImpl implements ErrorController {
     public BackendStatusResponse handleError(HttpServletRequest request) {
         HttpStatus httpStatus = getStatus(request);
 
-        return new BackendStatusResponse(false, httpStatus.getReasonPhrase(), version);
+        return new BackendStatusResponse(false, httpStatus.getReasonPhrase(), Server.getInstance().getBackendVersion());
     }
 
     /**
      * Return the HTTP Status.
+     *
      * @param request Request that was sent.
      * @return HTTP Status.
      */
     private HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer)request.getAttribute("jakarta.servlet.error.status_code");
+        Integer statusCode = (Integer) request.getAttribute("jakarta.servlet.error.status_code");
         if (statusCode == null) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         } else {

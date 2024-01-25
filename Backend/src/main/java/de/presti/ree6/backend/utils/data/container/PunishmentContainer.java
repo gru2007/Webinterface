@@ -1,5 +1,6 @@
 package de.presti.ree6.backend.utils.data.container;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import de.presti.ree6.backend.utils.data.container.guild.GuildContainer;
 import de.presti.ree6.backend.utils.data.container.role.RoleContainer;
 import de.presti.ree6.sql.entities.Punishments;
@@ -14,16 +15,19 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PunishmentContainer {
 
-    String punishmentId;
-    String guildId;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    long punishmentId;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    long guildId;
     String neededWarnings;
     String action;
     String timeoutTime;
     RoleContainer role;
 
     public PunishmentContainer(Punishments punishments) {
-        punishmentId = String.valueOf(punishments.getId());
-        guildId = String.valueOf(punishments.getGuildId());
+        punishmentId = punishments.getId();
+        guildId = punishments.getGuild();
         neededWarnings = String.valueOf(punishments.getWarnings());
         action = String.valueOf(punishments.getAction());
         timeoutTime = String.valueOf(punishments.getTimeoutTime());
@@ -31,7 +35,7 @@ public class PunishmentContainer {
 
     public PunishmentContainer(Punishments punishments, GuildContainer guildContainer) {
         this(punishments);
-        role = guildContainer.getRoleById(String.valueOf(punishments.getRoleId()));
+        role = guildContainer.getRoleById(punishments.getRoleId());
     }
 
 }

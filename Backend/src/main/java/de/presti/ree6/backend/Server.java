@@ -63,6 +63,12 @@ public class Server {
     TwitchIdentityProvider twitchIdentityProvider;
 
     /**
+     * Backend Version.
+     */
+    @Getter
+    private String backendVersion;
+
+    /**
      * Yaml Config Manager instance.
      */
     Config config;
@@ -74,6 +80,9 @@ public class Server {
      */
     public Server(String[] args) {
         instance = this;
+
+        String tempVersion = getInstance().getClass().getPackage().getImplementationVersion();
+        backendVersion = tempVersion == null ? "4.0.11" : tempVersion;
         load(args);
     }
 
@@ -83,12 +92,46 @@ public class Server {
      * @param args {@link String[]} used as List of the Arguments given at the start of the Application.
      */
     public void load(String[] args) {
+        log.info("Starting Backend {}", backendVersion);
 
         // Create Config Instance.
         config = new Config();
 
         // Initialize the Config.
         config.init();
+
+        // Creating a new SQL-Connector Instance.
+        DatabaseTyp databaseTyp;
+
+        switch (getInstance().getConfig().getConfiguration().getString("hikari.misc.storage").toLowerCase()) {
+            case "mariadb" -> databaseTyp = DatabaseTyp.MariaDB;
+
+            case "h2" -> databaseTyp = DatabaseTyp.H2;
+
+            case "h2-server", "h2_server" -> databaseTyp = DatabaseTyp.H2_Server;
+
+            case "postgresql", "postgres" -> databaseTyp = DatabaseTyp.PostgreSQL;
+
+            default -> databaseTyp = DatabaseTyp.SQLite;
+        }
+
+
+        log.info("Using {} as Database", databaseTyp.name());
+
+        SQLConfig sqlConfig = SQLConfig.builder()
+                .username(getConfig().getConfiguration().getString("hikari.sql.user"))
+                .database(getConfig().getConfiguration().getString("hikari.sql.db"))
+                .password(getConfig().getConfiguration().getString("hikari.sql.pw"))
+                .host(getConfig().getConfiguration().getString("hikari.sql.host"))
+                .port(getConfig().getConfiguration().getInt("hikari.sql.port"))
+                .path(getConfig().getConfiguration().getString("hikari.misc.storageFile"))
+                .typ(databaseTyp)
+                .poolSize(getConfig().getConfiguration().getInt("hikari.misc.poolSize"))
+                .createEmbeddedServer(getConfig().getConfiguration().getBoolean("hikari.misc.createEmbeddedServer"))
+                .debug(false)
+                .build();
+
+        new SQLSession(sqlConfig);
 
         // Creating OAuth2 Instance.
         oAuth2Client = new OAuth2Client.Builder().setClientId(config.getConfiguration().getLong("discord.client.id")).setClientSecret(config.getConfiguration().getString("discord.client.secret")).build();
@@ -113,42 +156,6 @@ public class Server {
         } catch (Exception exception) {
             //Inform if not successful.
             log.error("Service (JDA) couldn't be started. Creation was unsuccessful.", exception);
-        }
-
-        // Creating a new SQL-Connector Instance.
-        DatabaseTyp databaseTyp;
-
-        switch (getInstance().getConfig().getConfiguration().getString("hikari.misc.storage").toLowerCase()) {
-            case "mariadb" -> databaseTyp = DatabaseTyp.MariaDB;
-
-            case "h2" -> databaseTyp = DatabaseTyp.H2;
-
-            case "h2-server", "h2_server" -> databaseTyp = DatabaseTyp.H2_Server;
-
-            case "postgresql", "postgres" -> databaseTyp = DatabaseTyp.PostgreSQL;
-
-            default -> databaseTyp = DatabaseTyp.SQLite;
-        }
-
-        try {
-            SQLConfig sqlConfig = SQLConfig.builder()
-                    .username(getConfig().getConfiguration().getString("hikari.sql.user"))
-                    .database(getConfig().getConfiguration().getString("hikari.sql.db"))
-                    .password(getConfig().getConfiguration().getString("hikari.sql.pw"))
-                    .host(getConfig().getConfiguration().getString("hikari.sql.host"))
-                    .port(getConfig().getConfiguration().getInt("hikari.sql.port"))
-                    .path(getConfig().getConfiguration().getString("hikari.misc.storageFile"))
-                    .typ(databaseTyp)
-                    .poolSize(getConfig().getConfiguration().getInt("hikari.misc.poolSize", 1))
-                    .createEmbeddedServer(getConfig().getConfiguration().getBoolean("hikari.misc.createEmbeddedServer"))
-                    .debug(false)
-                    .sentry(false).build();
-
-            new SQLSession(sqlConfig);
-        } catch (Exception exception) {
-            log.error("Shutting down, because of an critical error!", exception);
-            System.exit(0);
-            return;
         }
 
         credentialManager = CredentialManagerBuilder.builder()
