@@ -22,7 +22,7 @@ public class RecordContainer {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     long guildId;
 
-    String voiceChannel;
+    long voiceChannel;
     UserContainer creator;
     String id;
 

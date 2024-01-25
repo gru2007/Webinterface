@@ -18,8 +18,8 @@ import de.presti.ree6.sql.SQLSession;
 import de.presti.ree6.sql.entities.*;
 import de.presti.ree6.sql.entities.custom.CustomCommand;
 import de.presti.ree6.sql.entities.webhook.*;
-import net.dv8tion.jda.api.Permission;
 import de.presti.ree6.sql.keys.GuildUserId;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
@@ -120,7 +120,7 @@ public class GuildService {
 
     //region ModLog channel
 
-    public ChannelContainer getModLogChannel(String sessionIdentifier, String guildId) throws IllegalAccessException {
+    public ChannelContainer getModLogChannel(String sessionIdentifier, long guildId) throws IllegalAccessException {
         GuildContainer guildContainer = sessionService.retrieveGuild(sessionIdentifier, guildId, true);
         WebhookMod webhook = SQLSession.getSqlConnector().getSqlWorker().getModWebhook(guildId);
         if (webhook == null) {
@@ -128,10 +128,10 @@ public class GuildService {
         }
 
         if (webhook.getChannelId() != 0) {
-            return new ChannelContainer(guildContainer.getGuildChannelById(String.valueOf(webhook.getChannelId())));
+            return new ChannelContainer(guildContainer.getGuildChannelById(webhook.getChannelId()));
         } else {
             net.dv8tion.jda.api.entities.Webhook webhook1 = guildContainer.getGuild().retrieveWebhooks().complete().stream()
-                    .filter(entry -> entry.getId().equalsIgnoreCase(webhook.getWebhookId()) && entry.getToken().equalsIgnoreCase(webhook.getToken())).findFirst().orElse(null);
+                    .filter(entry -> entry.getIdLong() == webhook.getWebhookId() && entry.getToken().equalsIgnoreCase(webhook.getToken())).findFirst().orElse(null);
 
             if (webhook1 != null) {
                 webhook.setChannelId(webhook1.getChannel().getIdLong());
@@ -143,7 +143,7 @@ public class GuildService {
         return new ChannelContainer();
     }
 
-    public void updateModLogChannel(String sessionIdentifier, String guildId, String channelId) throws IllegalAccessException {
+    public void updateModLogChannel(String sessionIdentifier, long guildId, String channelId) throws IllegalAccessException {
         GuildContainer guildContainer = sessionService.retrieveGuild(sessionIdentifier, guildId);
         Guild guild = guildContainer.getGuild();
         StandardGuildMessageChannel channel = guild.getChannelById(StandardGuildMessageChannel.class, channelId);
@@ -155,16 +155,16 @@ public class GuildService {
         SQLSession.getSqlConnector().getSqlWorker().setModWebhook(guildId, channel.getIdLong(), newWebhook.getId(), newWebhook.getToken());
     }
 
-    public WebhookMod removeModLogChannel(String sessionIdentifier, String guildId) throws IllegalAccessException {
+    public WebhookMod removeModLogChannel(String sessionIdentifier, long guildId) throws IllegalAccessException {
         return deleteModLogChannel(sessionService.retrieveGuild(sessionIdentifier, guildId).getGuild());
     }
 
     private WebhookMod deleteModLogChannel(Guild guild) {
-        WebhookMod webhook = SQLSession.getSqlConnector().getSqlWorker().getModWebhook(guild.getId());
+        WebhookMod webhook = SQLSession.getSqlConnector().getSqlWorker().getModWebhook(guild.getIdLong());
 
         if (webhook != null) {
             guild.retrieveWebhooks().queue(c -> c.stream().filter(entry -> entry.getToken() != null)
-                    .filter(entry -> entry.getId().equalsIgnoreCase(webhook.getWebhookId()) && entry.getToken().equalsIgnoreCase(webhook.getToken()))
+                    .filter(entry -> entry.getIdLong() == webhook.getWebhookId() && entry.getToken().equalsIgnoreCase(webhook.getToken()))
                     .forEach(entry -> entry.delete().queue()));
         }
 
@@ -474,7 +474,7 @@ public class GuildService {
     }
 
     public List<String> getRecordContainers(String sessionIdentifier, String guildId) throws IllegalAccessException {
-        Map<String, String> records = SQLSession.getSqlConnector().getSqlWorker().getRecordings(guildId);
+        Map<String, Long> records = SQLSession.getSqlConnector().getSqlWorker().getRecordings(guildId);
 
         return new ArrayList<String>(records.keySet());
     }
@@ -555,11 +555,11 @@ public class GuildService {
 
     //region SyncBans
 
-    public String getSyncBans(String sessionIdentifier, String guildId) throws IllegalAccessException {
+    public String getSyncBans(String sessionIdentifier, long guildId) throws IllegalAccessException {
         return SQLSession.getSqlConnector().getSqlWorker().getSetting(guildId, "configuration_ban_server").getStringValue();
     }
 
-    public void setSyncBans(String sessionIdentifier, String guildId, String following) throws IllegalAccessException {
+    public void setSyncBans(String sessionIdentifier, long guildId, String following) throws IllegalAccessException {
         SQLSession.getSqlConnector().getSqlWorker().setSetting(guildId, "configuration_ban_server", "Ban sync server", following);
     }
 

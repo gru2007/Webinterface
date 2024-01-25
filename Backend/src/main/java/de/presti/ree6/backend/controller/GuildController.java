@@ -408,7 +408,7 @@ public class GuildController {
     //region Guild ModerLog Channel
 
     @GetMapping(value = "/{guildId}/modlog", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericObjectResponse<ChannelContainer> retrieveModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+    public GenericObjectResponse<ChannelContainer> retrieveModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") long guildId) {
         try {
             return new GenericObjectResponse<>(true, guildService.getModLogChannel(sessionIdentifier, guildId), "Log channel retrieved!");
         } catch (Exception e) {
@@ -417,7 +417,7 @@ public class GuildController {
     }
 
     @PostMapping(value = "/{guildId}/modlog/remove", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericResponse removeModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+    public GenericResponse removeModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") long guildId) {
         try {
             SQLSession.getSqlConnector().getSqlWorker().deleteEntity(guildService.removeModLogChannel(sessionIdentifier, guildId));
             return new GenericResponse(true, "Log channel removed!");
@@ -427,7 +427,7 @@ public class GuildController {
     }
 
     @PostMapping(value = "/{guildId}/modlog/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericResponse addModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId, @RequestBody GenericValueRequest request) {
+    public GenericResponse addModLogChannel(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") long guildId, @RequestBody GenericValueRequest request) {
         try {
             guildService.updateModLogChannel(sessionIdentifier, guildId, request.value());
             return new GenericResponse(true, "Log channel added!");
@@ -675,7 +675,7 @@ public class GuildController {
     //region BanSync
 
     @GetMapping(value = "/{guildId}/bansync", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericObjectResponse<String> retrieveBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+    public GenericObjectResponse<String> retrieveBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") long guildId) {
         try {
             return new GenericObjectResponse<>(true, guildService.getSyncBans(sessionIdentifier, guildId), "Following Bans retrieved!");
         } catch (Exception e) {
@@ -684,7 +684,7 @@ public class GuildController {
     }
 
     @PostMapping(value = "/{guildId}/bansync/remove", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericResponse removeBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId) {
+    public GenericResponse removeBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") long guildId) {
         try {
             guildService.setSyncBans(sessionIdentifier, guildId, "-1");
             return new GenericResponse(true, "Following Bans removed!");
@@ -694,7 +694,7 @@ public class GuildController {
     }
 
     @PostMapping(value = "/{guildId}/bansync/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public GenericResponse addBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") String guildId, @RequestBody BanSyncRequest following) {
+    public GenericResponse addBanSync(@RequestHeader(name = "X-Session-Authenticator") String sessionIdentifier, @PathVariable(name = "guildId") long guildId, @RequestBody BanSyncRequest following) {
         try {
             guildService.setSyncBans(sessionIdentifier, guildId, following.guildId());
             return new GenericResponse(true, "Following Bans added!");
