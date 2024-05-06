@@ -18,6 +18,7 @@
         try {
             const res = await fetch(BASE_PATH + "/auth/discord?code=" + code + "&state=" + state, {
                 method: "GET",
+                mode: 'no-cors',
             })
 
             const json = await res.json();
