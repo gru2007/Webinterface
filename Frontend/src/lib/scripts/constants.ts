@@ -5,6 +5,7 @@ export function get(path: string) {
 
     return fetch(BASE_PATH + path, {
         method: "GET",
+        mode: 'no-cors',
         headers: {
             'X-Session-Authenticator': localStorage.getItem("token")!
         },
@@ -17,6 +18,7 @@ export async function get_js(path: string) {
     try {
         res = await fetch(BASE_PATH + path, {
             method: "GET",
+            mode: 'no-cors',
             headers: {
                 'X-Session-Authenticator': localStorage.getItem("token")!,
             },
