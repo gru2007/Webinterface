@@ -66,9 +66,9 @@
 
         <!-- Database -->
         <dependency>
-            <groupId>de.ree6</groupId>
-            <artifactId>Ree6-SQL</artifactId>
-            <version>3.0.0</version>
+            <groupId>com.github.gru2007</groupId>
+            <artifactId>Storm-SQL</artifactId>
+            <version>2.2.7</version>
         </dependency>
 
         <!-- Discord -->
