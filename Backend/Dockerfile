@@ -9,4 +9,5 @@ FROM amazoncorretto:21-alpine3.16-full
 ARG JAR_FILE=/usr/src/app/target/*.jar
 COPY --from=build ${JAR_FILE} /usr/app/Ree6-Webinterface.jar
 EXPOSE 8888/tcp
+WORKDIR "/home/container"
 ENTRYPOINT ["java","-jar","/usr/app/Ree6-Webinterface.jar"]
