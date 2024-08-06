@@ -18,6 +18,11 @@ jobs:
   backend:
     name: Build and push Backend image
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Allow actions to create release
+      packages: write # Allow pushing images to GHCR
+      attestations: write # To create and write attestations
+      id-token: write # Additional permissions for the persistence of the attestations
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
